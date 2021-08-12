@@ -20,7 +20,7 @@ function showCategoriesList(array) {
               </div>
               <p class="mb-1"> ${category.description} </p>
              <div>
-                <h4 style="color:red"> ${category.cost}  ${category.currency}</h4>   
+                <h4 style="color:blue"> ${category.cost}  ${category.currency}</h4>   
             </div>
 
         </div>
@@ -34,6 +34,5 @@ document.addEventListener("DOMContentLoaded", async function (e) {
   var productos = (await getJSONData(PRODUCTS_URL)).data; //Realizo la petición y guardo result.data en una variable
   var ubicacion = document.getElementsByClassName("container p-5")[0]; //Obtengo la información del elemento donde mostraré
   //los resultados obtenidos
-  // ubicacion.innerHTML = JSON.stringify(productos);                 //Muestro la respuesta de la petición en el HTML como una cadena de texto.
   showCategoriesList(productos);
 });
