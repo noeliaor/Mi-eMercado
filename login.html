@@ -6,6 +6,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
+  <meta name="google-signin-client_id"
+    content="491293186414-4rms7uft8es2s2qofk1lgdio0kcjn6rl.apps.googleusercontent.com">
   <title>eMercado - Todo lo que busques está aquí</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
@@ -48,6 +50,15 @@
       <input id="datapassword" type="text" name="Password" placeholder="Contraseña" value=""><br><br>
     </form>
     <button><a class="AccessButton">Ingresar</a></button>
+
+    <!-- Display Google sign-in button -->
+    <div>
+    <div id="gSignIn"></div>
+
+    <!-- Show the user profile details -->
+    <div class="userContent" style="display: none;"></div>
+</div>
+<p></p>
     <p><input type="checkbox" checked="checked"> Recordarme </p>
     <a href="#"> ¿Olvidaste tu contraseña? </a>
   </div>
@@ -60,8 +71,10 @@
     </div>
   </div>-->
 
- <script src="js/init.js"></script>
+  <script src="js/init.js"></script>
   <script src="js/login.js"></script>
+  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+  <script src="js/google.js"></script>
 </body>
 
 </html>
