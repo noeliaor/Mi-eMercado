@@ -14,7 +14,8 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <style>
-    html, body{
+    html,
+    body {
       height: 100%;
     }
 
@@ -38,16 +39,29 @@
 </head>
 
 <body class="text-center">
-  <div class="container p-5">
+  <div class="signin">
+    <h1 class="header">¡Entrá y comprá!</h1>
+    <img class="cover-ingreso" src="img/cover_back.png" width=150% height="auto">
+    <form method="GET">
+      <br>
+      <input id="datauser" type="text" name="User" placeholder="Nombre de usuario" value=""><br><br><br>
+      <input id="datapassword" type="text" name="Password" placeholder="Contraseña" value=""><br><br>
+    </form>
+    <button><a class="AccessButton" >Ingresar</a></button>
+    <p><input type="checkbox" checked="checked"> Recordarme </p>
+    <a href="#"> ¿Olvidaste tu contraseña? </a>
+  </div>
+  <!--<div class="container p-5">
     <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
       <h4 class="alert-heading">¡A trabajar! :)</h4>
       <p>Esta sección corresponde a: Entrega 1 (Fecha de entrega: 08/08/2021).</p>
       <hr>
       <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
     </div>
-  </div>
+  </div>-->
 
-  <script src="js/init.js"></script>
+ <script src="js/init.js"></script>
   <script src="js/login.js"></script>
 </body>
+
 </html>
