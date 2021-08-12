@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     var Txtuser = document.getElementById('datauser').value;
     var Txtpassword = document.getElementById('datapassword').value;
 
-    if ((Txtuser && Txtpassword) || (Googleuser && Googlepassword)) { //De haber datos de usuario Y contraseña los almacena como objeto de la sesión
+    if (Boolean((Txtuser && Txtpassword)) || Boolean((Googleuser && Googlepassword))) { //De haber datos de usuario Y contraseña los almacena como objeto de la sesión
       window.location.href = "index.html";                             //redirige al index//página inicial de la tienda
       sessionStorage.setItem('user', Txtuser);
       sessionStorage.setItem('password', Txtpassword);
