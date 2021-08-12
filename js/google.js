@@ -25,11 +25,11 @@ function onSuccess(googleUser) {
             // Display the user details
             var profileHTML = '<h3>Bienvenido/a ' + resp.given_name + '!</h3>';
             profileHTML += '<p style="color:red">¡Presiona ingresar!</p>'+'<img src="' + resp.picture + '"/><p><b>Nombre: </b>' + resp.name + '</p><p><b>Correo electrónico:</b>' + resp.email + '</p> <a href="javascript:void(0);" onclick="signOut();">Cerrar sesión</a><p>';
-            var Txtuser = resp.name;
-            var Txtpassword = resp.email;
+            var Googleuser = resp.name;
+            var Googlepassword = resp.email;
 
-            sessionStorage.setItem('user', Txtuser);
-            sessionStorage.setItem('password', Txtpassword);
+            sessionStorage.setItem('Guser', Googleuser);
+            sessionStorage.setItem('Gpassword', Googlepassword);
 
             document.getElementsByClassName("userContent")[0].innerHTML = profileHTML;
 
