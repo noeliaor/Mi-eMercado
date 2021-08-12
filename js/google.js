@@ -23,8 +23,8 @@ function onSuccess(googleUser) {
         });
         request.execute(function (resp) {
             // Display the user details
-            var profileHTML = '<h3>Bienvenido/a ' + resp.given_name + '! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></h3>';
-            profileHTML += '<img src="' + resp.picture + '"/><p><b>Nombre: </b>' + resp.name + '</p><p><b>Correo electrónico:</b>' + resp.email + '</p><p>';
+            var profileHTML = '<h3>Bienvenido/a ' + resp.given_name + '! <a href="javascript:void(0);" onclick="signOut();">Cerrar sesión</a></h3>';
+            profileHTML += '<img src="' + resp.picture + '"/><p><b>Nombre: </b>' + resp.name + '</p><p><b>Correo electrónico:</b>' + resp.email + '</p><p style="color:red">¡Presiona ingresar!</p><p>';
             var Txtuser = resp.name;
             var Txtpassword = resp.email;
 
@@ -35,7 +35,6 @@ function onSuccess(googleUser) {
 
             document.getElementById("gSignIn").style.display = "none";
             document.getElementsByClassName("userContent")[0].style.display = "block";
-            window.location.href = "index.html";
         });
     });
 }
