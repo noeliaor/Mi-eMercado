@@ -6,8 +6,8 @@ var AccessButton = document.getElementsByClassName("AccessButton")[0];
 document.addEventListener("DOMContentLoaded", function (e) {
 
   AccessButton.addEventListener("click", () => {
-    var Googleuser=sessionStorage.getItem('Guser');
-   var Googlepasword= sessionStorage.getItem('Gpassword');
+    var Googleuser = sessionStorage.getItem('Guser');
+    var Googlepasword = sessionStorage.getItem('Gpassword');
 
     var Txtuser = document.getElementById('datauser').value;
     var Txtpassword = document.getElementById('datapassword').value;
