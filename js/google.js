@@ -11,9 +11,6 @@ function renderButton() {
     });
 
 
-    sessionStorage.setItem('Guser', Googleuser);
-    sessionStorage.setItem('Gpassword', Googlepassword);
-
 }
 
 // Sign-in success callback
@@ -32,7 +29,9 @@ function onSuccess(googleUser) {
             profileHTML += '<p style="color:red">¡Presiona ingresar!</p>' + '<img src="' + resp.picture + '"/><p><b>Nombre: </b></p><p>' + resp.name + '</p><p><b>Correo electrónico:</b></p><p>' + resp.email + '</p> <a href="javascript:void(0);" onclick="signOut();">Cerrar sesión</a><p>';
             var Googleuser = resp.name;
             var Googlepassword = resp.email;
-        
+            sessionStorage.setItem('Guser', Googleuser);
+            sessionStorage.setItem('Gpassword', Googlepassword);
+
             document.getElementsByClassName("userContent")[0].innerHTML = profileHTML;
 
             document.getElementById("gSignIn").style.display = "none";
