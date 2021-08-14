@@ -7,7 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
 
-  <meta name="google-signin-client_id" content="491293186414-4rms7uft8es2s2qofk1lgdio0kcjn6rl.apps.googleusercontent.com"> <!--AUTENTICACIÓN DE GOOGLE-->
+  <meta name="google-signin-client_id"
+    content="491293186414-4rms7uft8es2s2qofk1lgdio0kcjn6rl.apps.googleusercontent.com">
+  <!--AUTENTICACIÓN DE GOOGLE-->
   <title>eMercado - Todo lo que busques está aquí</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
@@ -42,27 +44,31 @@
 
 <body class="text-center">
   <div class="signin">
-    <h1 class="header">¡Entrá y comprá!</h1>
-    <img class="cover-ingreso" src="img/cover_back.png" width=150% height="auto">
     <form method="GET">
+      <h1 class="header">¡Entrá y comprá!</h1>
+      <img class="cover-ingreso" src="img/cover_back.png" width=100% height="auto">
+
       <br>
-      <input id="datauser" type="text" name="User" placeholder="Nombre de usuario" value=""><br><br><br>
-      <input id="datapassword" type="text" name="Password" placeholder="Contraseña" value=""><br><br>
+      <input style='width: 100%' id="datauser" type="text" name="User" placeholder="Nombre de usuario" value=""><br><br>
+      <input style='width: 100%' id="datapassword" type="text" name="Password" placeholder="Contraseña"
+        value=""><br><br>
+
+      <!-- Display Google sign-in button -->
+      <div>
+        <button class="AccessButton">Ingresar</button><br></br>
+        <div id="gSignIn"></div>
+
+        <!-- Show the user profile details -->
+        <div class="userContent" style="display: none;"></div>
     </form>
-    <!-- Display Google sign-in button -->
-    <div>
-    <div id="gSignIn"></div>
+  </div>
+  <p></p>
+  
 
-    <!-- Show the user profile details -->
-    <div class="userContent" style="display: none;"></div>
-</div>
-<p></p>
-    <button><a class="AccessButton">Ingresar</a></button>
 
-    
 
-    <p><input type="checkbox" checked="checked"> Recordarme </p>
-    <a href="#"> ¿Olvidaste tu contraseña? </a>
+  <p><input type="checkbox" checked="checked"> Recordarme </p>
+  <a href="#" onclick="alert('A mí también me pasa a veces.')"> ¿Olvidaste tu contraseña? </a>
   </div>
   <!--<div class="container p-5">
     <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
@@ -75,7 +81,8 @@
 
   <script src="js/init.js"></script>
   <script src="js/login.js"></script>
-<script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>  <!--AUTENTICACIÓN DE GOOGLE-->
+  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+  <!--AUTENTICACIÓN DE GOOGLE-->
 
   <script src="js/google.js"></script>
 </body>
