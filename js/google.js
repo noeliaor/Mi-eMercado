@@ -14,7 +14,7 @@ function renderButton() { //Crea un botón de inicio de sesión de Google con co
     });
 }
 
-function onSuccess(googleUser) { //Función de devolución de llamada una vez que se inicia sección,
+function onSuccess(googleUser) { //Función de devolución de llamada una vez que se inicia sesión,
                                 //Obtiene los datos de la cuenta y los muestra en pantalla
     gapi.client.load('oauth2', 'v2', function () {
         var request = gapi.client.oauth2.userinfo.get({
