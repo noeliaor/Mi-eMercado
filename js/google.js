@@ -1,7 +1,10 @@
-// Render Google Sign-in button
-function renderButton() {
+/*Este script proviene del siguiente link:
+https://www.codexworld.com/login-with-google-account-using-javascript/ (Último acceso 15/8 17:18)
+El código incluido en login.html para la autenticación de Google también se extrajo de allí.
+*/
+
+function renderButton() { //Crea un botón de inicio de sesión de Google con configuraciones personalizadas.
     gapi.signin2.render('gSignIn', {
-        //'scope': 'profile email',
         'width': 300,
         'height': 50,
         'longtitle': true,
@@ -9,43 +12,34 @@ function renderButton() {
         'onsuccess': onSuccess,
         'onfailure': onFailure
     });
-
-
 }
 
-// Sign-in success callback
-function onSuccess(googleUser) {
-    // Get the Google profile data (basic)
-    //var profile = googleUser.getBasicProfile();
-
-    // Retrieve the Google account data
+function onSuccess(googleUser) { //Función de devolución de llamada una vez que se inicia sección,
+                                //Obtiene los datos de la cuenta y los muestra en pantalla
     gapi.client.load('oauth2', 'v2', function () {
         var request = gapi.client.oauth2.userinfo.get({
             'userId': 'me'
         });
         request.execute(function (resp) {
-            // Display the user details
             var profileHTML = '<h3>Bienvenido/a ' + resp.given_name + '!</h3>';
             profileHTML += '<p style="color:red">¡Presiona ingresar!</p>' + '<img src="' + resp.picture + '"/><p><b>Nombre: </b></p><p>' + resp.name + '</p><p><b>Correo electrónico:</b></p><p>' + resp.email + '</p> <a href="javascript:void(0);" onclick="signOut();">Cerrar sesión</a><p>';
-            var Googleuser = resp.name;
-            var Googlepassword = resp.email;
-            sessionStorage.setItem('Guser', Googleuser);
-            sessionStorage.setItem('Gpassword', Googlepassword);
+           
+            sessionStorage.setItem('Guser',  resp.name);  //Almaceno como datos de sesión el nombre y email, se emplean para verificar el ingreso en verification.js
+            sessionStorage.setItem('Gmail', resp.email); 
 
             document.getElementsByClassName("userContent")[0].innerHTML = profileHTML;
-
             document.getElementById("gSignIn").style.display = "none";
             document.getElementsByClassName("userContent")[0].style.display = "block";
         });
     });
 }
 
-// Sign-in failure callback
+//Función llamada en el ingreso cuando no se logra iniciar correctamente
 function onFailure(error) {
-    //alert(error);
+    alert("Hubo un error, intente nuevamente.\n Recuerde que sólo puede iniciar sesión con Google en la web: https://noeliaor.github.io/Mi-eMercado/");
 }
 
-// Sign out the user
+//Cierra la sesión del usuario en la cuenta de Google.
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {

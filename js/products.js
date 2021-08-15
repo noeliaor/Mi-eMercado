@@ -1,8 +1,10 @@
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
-function showCategoriesList(array) {
-  let htmlContentToAppend = "";
+function showCategoriesList(array) { /*Concatena la información de distintos productos
+                                  extraida en un array, con etiquetas determinadas para lograr
+                                  un estilo específico en el HTML y finalmente lo inluye en el archivo.*/ 
+  let htmlContentToAppend = ""
   for (let i = 0; i < array.length; i++) {
     let category = array[i];
     htmlContentToAppend += `
@@ -32,7 +34,5 @@ function showCategoriesList(array) {
 }
 document.addEventListener("DOMContentLoaded", async function (e) {
   var productos = (await getJSONData(PRODUCTS_URL)).data; //Realizo la petición y guardo result.data en una variable
-  var ubicacion = document.getElementsByClassName("container p-5")[0]; //Obtengo la información del elemento donde mostraré
-  //los resultados obtenidos
-  showCategoriesList(productos);
+  showCategoriesList(productos); //Llamo a la función que muestra la información de los productos.
 });

@@ -6,11 +6,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-
-  <meta name="google-signin-client_id"
-    content="491293186414-4rms7uft8es2s2qofk1lgdio0kcjn6rl.apps.googleusercontent.com">
-  <!--AUTENTICACIÓN DE GOOGLE-->
-  <title>eMercado - Todo lo que busques está aquí</title>
+<!--AUTENTICACIÓN DE GOOGLE-->
+  <meta name="google-signin-client_id" content="491293186414-4rms7uft8es2s2qofk1lgdio0kcjn6rl.apps.googleusercontent.com">
+ <!--Se agrega el meta elemento google-signin-client_id, donde se especifica el ID de cliente de mi proyecto,
+   ese ID fue creado en la consola API de Google.--> 
+  
+<title>eMercado - Todo lo que busques está aquí</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -44,7 +45,7 @@
 
 <body class="text-center">
   <div class="signin">
-    <form method="GET" onsubmit="return false"> <!--Return false para que no haga submit-->
+    <form method="GET" onsubmit="return false"> <!--Se emplea return false para que no haga submit (autenticación ficticia)-->
       <h1 class="header">¡Entrá y comprá!</h1>
       <img class="cover-ingreso" src="img/cover_back.png" width=100% height="auto">
 
@@ -53,38 +54,30 @@
       <input style='width: 100%' id="datapassword" type="text" name="Password" placeholder="Contraseña"
         value=""><br><br>
 
-      <!-- Display Google sign-in button -->
+  <!--AUTENTICACIÓN DE GOOGLE-->
+      <!-- Muestra el botón de sign-in de Google-->
       <div>
         <button class="AccessButton">Ingresar</button><br></br>
         <div id="gSignIn"></div>
 
-        <!-- Show the user profile details -->
+        <!-- Al ingresar se muestran detalles sobre el usuario -->
         <div class="userContent" style="display: none;"></div>
+        <!----------------------------------------------->
     </form>
   </div>
-  <p></p>
-  
-
-
 
   <p><input type="checkbox" checked="checked"> Recordarme </p>
   <a href="#" onclick="alert('A mí también me pasa a veces.')"> ¿Olvidaste tu contraseña? </a>
   </div>
-  <!--<div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 1 (Fecha de entrega: 08/08/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
-    </div>
-  </div>-->
 
   <script src="js/init.js"></script>
   <script src="js/login.js"></script>
-  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+  
   <!--AUTENTICACIÓN DE GOOGLE-->
-
+  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+ <!--Se incluye la biblioteca de API de Google, esto crea el objeto "gapi" a usar en google.js-->
   <script src="js/google.js"></script>
+
 </body>
 
 </html>
