@@ -33,6 +33,6 @@ function showCategoriesList(array) { /*Concatena la información de distintos pr
   }
 }
 document.addEventListener("DOMContentLoaded", async function (e) {
-  var productos = (await getJSONData(PRODUCTS_URL)).data; //Realizo la petición y guardo result.data en una variable
-  showCategoriesList(productos); //Llamo a la función que muestra la información de los productos.
+  var products = (await getJSONData(PRODUCTS_URL)).data; //Realizo la petición y guardo result.data en una variable
+  showCategoriesList(products); //Llamo a la función que muestra la información de los productos.
 });
