@@ -44,4 +44,13 @@ var getJSONData = function(url){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
+let ToUser = document.getElementsByClassName("container d-flex flex-column flex-md-row justify-content-between")[0];
+let content = ToUser.innerHTML;
+if (sessionStorage.getItem('user')!=null){
+  var user=sessionStorage.getItem('user')
+}else{
+  var user=session.Storage.getItem('Guser')
+}
+ content+= `<span class="py-2 d-none d-md-inline-block" id="User"><img class="circular--square" src="img/user.png" /> ${user} </span>`;
+ ToUser.innerHTML = content;
 });

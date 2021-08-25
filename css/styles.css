@@ -149,3 +149,17 @@ a.custom-card:hover {
     display: inline-block;
     font-size: 16px;
 }
+
+#User{
+  background-color: #008CBA;
+  color: white;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-weight: bolder;
+  ;
+}
+.circular--square {
+  border-radius: 50%;
+  width: 20px;
+  height:20px;
+}
