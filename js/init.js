@@ -43,14 +43,17 @@ var getJSONData = function(url){
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
+
 document.addEventListener("DOMContentLoaded", function(e){
-let ToUser = document.getElementsByClassName("container d-flex flex-column flex-md-row justify-content-between")[0];
-let content = ToUser.innerHTML;
-if (sessionStorage.getItem('user')!=null){
+let ToUser = document.getElementsByClassName("container d-flex flex-column flex-md-row justify-content-between")[0]; //Identifico barra superior que contiene las opciones (prod,cat,etc)
+let content = ToUser.innerHTML; //Extraigo contenido del elemento
+
+if (sessionStorage.getItem('user')!=null){//Almaceno el usuario, según modo de autenticación empleado
   var user=sessionStorage.getItem('user')
 }else{
-  var user=session.Storage.getItem('Guser')
+  var user=sessionStorage.getItem('Guser')
 }
+//Agrego al contenido extraido un elemento span que contendrá el nombre de usuario
  content+= `<span class="py-2 d-none d-md-inline-block" id="User"><img class="circular--square" src="img/user.png" /> ${user} </span>`;
- ToUser.innerHTML = content;
+ ToUser.innerHTML = content; //Redefino el contenido en la barra superior, incluyendo el usuario
 });
