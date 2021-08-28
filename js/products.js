@@ -18,13 +18,22 @@ const showData = (array, SortPreference, concept) => { //Ordena los elementos de
 
 };
 
+const FilterData(DataName,DataDescription,Search)=> {
+  let result=0;
+  if (DataName.search(Search)>0||DataDescription.search(Search)>0){
+    result=1;
+  }
+ return result;
+};
+
 
 function showProductsList(array, SortPreference, concept, Minimo, Maximo) {
   let htmlContentToAppend = ""
   for (let i = 0; i < array.length; i++) {
     let product = showData(array, SortPreference, concept)[i]; //Recibe la array ordenada y la almacena
 
-    if (product.cost >= Minimo && product.cost <= Maximo) { //Sólo aquellos productos con precios en el rango definido 
+
+    if (product.cost >= Minimo && product.cost <= Maximo && FilterData()) { //Sólo aquellos productos con precios en el rango definido 
       //se van a mostrar (concatenar al contenido)
       htmlContentToAppend += `
     <div class="list-group-item list-group-item-action">
@@ -115,14 +124,12 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     showProductsList(products, OrderPreference, OrderBy, minCount, maxCount); //Vuelve a mostrar la lista
   });
 });
-  //Desafiate
+//Desafiate
 
-  //let buscador=document.getElementById("buscador");
-
-//buscador.addEventListener("keydown",  (event)=> {
-  //     alert("hola")
-       //let ToSearch = buscador.value;
-
-   // showProductsList(products, OrderPreference, OrderBy, minCount, maxCount, ToSearch);
-  //});
+let buscador = document.getElementById("buscador");
+buscador.addEventListener("keydown", (event) => {
+  let ToSearch = buscador.value;
+  alert(ToSearch)
+  showProductsList(products, OrderPreference, OrderBy, minCount, maxCount, ToSearch);
+});
 
