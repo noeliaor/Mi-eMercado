@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 let ToUser = document.getElementsByClassName("container d-flex flex-column flex-md-row justify-content-between")[0]; //Identifico barra superior que contiene las opciones (prod,cat,etc)
 let content = ToUser.innerHTML; //Extraigo contenido del elemento
 
-if (sessionStorage.getItem('user')!=null){//Almaceno el usuario, según modo de autenticación empleado
+if (sessionStorage.getItem('user')!=""){//Almaceno el usuario, según modo de autenticación empleado
   var user=sessionStorage.getItem('user')
 }else{
   var user=sessionStorage.getItem('Guser')
