@@ -44,9 +44,11 @@ function showProductsList(array, SortPreference, concept, Minimo, Maximo, Search
     if (product.cost >= Minimo && product.cost <= Maximo && FilterData(product.name, product.description, Search) == 1) { //Sólo aquellos productos con precios en el rango definido,
       //Y que contienen en desc. o nombre la palabra buscada. 
       //se van a mostrar (concatenar al contenido)
-      htmlContentToAppend += `
-    <div class="list-group-item list-group-item-action">
+      
+      //Se agrega id para identificar el contenedor de cada producto
 
+      htmlContentToAppend += `
+    <div id=${product.name} class="list-group-item list-group-item-action">
     <div class="row">
         <div class="col-3">
             <img src="${product.imgSrc}" alt="${product.description}" class="img-thumbnail">
@@ -139,5 +141,13 @@ document.addEventListener("DOMContentLoaded", async function (e) {
   buscador.addEventListener("keyup", (event) => { //Cada vez que se presiona y suelta una tecla en el input para búsquedas
     showProductsList(products, OrderPreference, OrderBy, minCost, maxCost, buscador.value); //Realiza la muestra de productos con la cadena a buscar
 });
+
+document.getElementsByClassName("container p-5")[0].addEventListener("click", function () { //Selección de filtrado
+  window.location.href = "product-info.html";
 });
+
+
+});
+
+
 

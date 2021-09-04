@@ -26,12 +26,82 @@
     </div>
   </nav>
   <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 3 (Fecha de entrega: 19/09/2021) y Entrega 4 (Fecha de entrega: 03/10/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+    <div class="text-center p-4">
+      <h2>Autos</h2>
+      <p class="lead">Encontrarás aquí toda la información del producto seleccionado.</p>
+      <p class="small alert-warning py-3"><strong>Nota: </strong>por simplicidad, cualquiera sea el auto elegido siempre
+        se mostrará el mismo modelo. <strong>Chevrolet Onix Joy</strong>.</p>
     </div>
+    <h3 id="productName"></h3>
+    <hr class="my-3">
+    <dl>
+      <dt>Descripción</dt>
+      <dd>
+        <p id="productDescription"></p>
+      </dd>
+
+      <dt>Costo</dt>
+      <dd>
+        <p id="productCost"></p>
+      </dd>
+
+      <dt>Productos restantes</dt>
+      <dd>
+        <p id="productCount"></p>
+      </dd>
+
+      <dt>Imágenes ilustrativas</dt>
+      <dd>
+        <div class="row text-center text-lg-left pt-2" id="productImagesGallery">
+        </div>
+      </dd>
+      <dt>Comentarios</dt>
+      <dd>
+        <div class="row text-center text-lg-left pt-2" id="productComments">
+        </div>
+      </dd>
+      <dt>Productos relacionados</dt>
+      <div>
+        <p id="relatedProducts"></p>
+      </div>
+    </dd>
+    <dt>¡Agregá un comentario!</dt>
+    <div>
+      <p id="relatedProducts"></p>
+    </div>
+      <div  style="background-color:#cfe2f3; padding: 20px;" >
+        <form onsubmit="return false" id="commentform">
+          <label>Puntuación:</label><br>
+          <fieldset class="rating" id="stars">
+            <input id="demo-1" type="radio" name="demo" value="1">
+            <label for="demo-1">1 star</label>
+            <input id="demo-2" type="radio" name="demo" value="2">
+            <label for="demo-2">2 stars</label>
+            <input id="demo-3" type="radio" name="demo" value="3">
+            <label for="demo-3">3 stars</label>
+            <input id="demo-4" type="radio" name="demo" value="4">
+            <label for="demo-4">4 stars</label>
+            <input id="demo-5" type="radio" name="demo" value="5">
+            <label for="demo-5">5 stars</label>
+
+            <div class="stars">
+              <label for="demo-1" aria-label="1 star" title="1 star"></label>
+              <label for="demo-2" aria-label="2 stars" title="2 stars"></label>
+              <label for="demo-3" aria-label="3 stars" title="3 stars"></label>
+              <label for="demo-4" aria-label="4 stars" title="4 stars"></label>
+              <label for="demo-5" aria-label="5 stars" title="5 stars"></label>
+            </div>
+
+          </fieldset>
+          <label>Descripción:</label><br>
+          <textarea type="text" id="descriptioncomment" name="description" rows="5" cols="50"
+            placeholder="Escribe aquí tus opiniones y valoraciones sobre el producto."></textarea><br><br>
+            <button class="AccessButton" id="submitcomment">Enviar</button><br></br>
+        </form>
+      </div>
+      </dd>
+    </dl>
+  </div>
   </div>
   <footer class="text-muted">
     <div class="container">
