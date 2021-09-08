@@ -13,6 +13,7 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -32,15 +33,11 @@
       <p class="small alert-warning py-3"><strong>Nota: </strong>por simplicidad, cualquiera sea el auto elegido siempre
         se mostrará el mismo modelo. <strong>Chevrolet Onix Joy</strong>.</p>
     </div>
+
     <h3 id="productName"></h3>
     <hr class="my-3">
-    <dl>
-      <dt>Descripción</dt>
-      <dd>
-        <p id="productDescription"></p>
-      </dd>
 
-      <dt>Costo</dt>
+    <dl>
       <dd>
         <p id="productCost"></p>
       </dd>
@@ -55,33 +52,28 @@
         <div class="row text-center text-lg-left pt-2" id="productImagesGallery">
         </div>
       </dd>
-      <dt>Comentarios</dt>
+
+      <dt>Descripción</dt>
       <dd>
-        <div class="row text-center text-lg-left pt-2" id="productComments">
-        </div>
+        <p id="productDescription"></p>
       </dd>
-      <dt>Productos relacionados</dt>
-      <div>
-        <p id="relatedProducts"></p>
-      </div>
-    </dd>
-    <dt>¡Agregá un comentario!</dt>
-    <div>
-      <p id="relatedProducts"></p>
-    </div>
-      <div  style="background-color:#cfe2f3; padding: 20px;" >
+
+      <dd>
+      <dt>¡Agregá un comentario!</dt>
+
+      <div style="background-color:#cfe2f3; padding: 20px;">
         <form onsubmit="return false" id="commentform">
           <label>Puntuación:</label><br>
           <fieldset class="rating" id="stars">
-            <input id="demo-1" type="radio" name="demo" value="1">
+            <input id="demo-1" type="radio" name="stars" value="1" required>
             <label for="demo-1">1 star</label>
-            <input id="demo-2" type="radio" name="demo" value="2">
+            <input id="demo-2" type="radio" name="stars" value="2">
             <label for="demo-2">2 stars</label>
-            <input id="demo-3" type="radio" name="demo" value="3">
+            <input id="demo-3" type="radio" name="stars" value="3">
             <label for="demo-3">3 stars</label>
-            <input id="demo-4" type="radio" name="demo" value="4">
+            <input id="demo-4" type="radio" name="stars" value="4">
             <label for="demo-4">4 stars</label>
-            <input id="demo-5" type="radio" name="demo" value="5">
+            <input id="demo-5" type="radio" name="stars" value="5">
             <label for="demo-5">5 stars</label>
 
             <div class="stars">
@@ -96,10 +88,23 @@
           <label>Descripción:</label><br>
           <textarea type="text" id="descriptioncomment" name="description" rows="5" cols="50"
             placeholder="Escribe aquí tus opiniones y valoraciones sobre el producto."></textarea><br><br>
-            <button class="AccessButton" id="submitcomment">Enviar</button><br></br>
+          <button class="AccessButton" id="submitcomment">Enviar</button><br></br>
         </form>
       </div>
       </dd>
+
+      <dt>Comentarios</dt>
+      <dd>
+        <div class="row text-center text-lg-left pt-2" id="productComments">
+        </div>
+      </dd>
+
+      <dt>Productos relacionados</dt>
+      <div>
+        <p id="relatedProducts"></p>
+      </div>
+
+
     </dl>
   </div>
   </div>
@@ -124,6 +129,9 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
+  <script> function ShowProductInfo() {
+      window.location.href = "product-info.html"
+    }</script>
 </body>
 
 </html>

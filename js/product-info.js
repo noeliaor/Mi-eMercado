@@ -1,7 +1,7 @@
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
-function showImagesGallery(array) {
+function showImagesGallery(array) {//Recorre una array de imágenes, concatena su contenido y las muestra
 
     let htmlContentToAppend = "";
 
@@ -20,47 +20,35 @@ function showImagesGallery(array) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function (e) {
-    getJSONData(PRODUCTS_URL).then(function (resultObj) {
-        if (resultObj.status === "ok") {
-            products = resultObj.data;
-        }
-    });
+function ShowStars(score) { //Recibe una puntuación y genera el contenido necesario para visualizarla como estrellas
+    stars = 5;
+    contentstars = "";
+    for (let j = 0; j < score; j++) { //Muestro tantas estrellas como puntaje
+        stars -= 1;
+        contentstars += `<span class="fa fa-star checked"></span>`
+    }
+    for (let k = 0; k < stars; k++) { //Las estrellas restantes (de las 5) son vacías
+        contentstars += `<span class="fa fa-star"></span>`
+    }
+    return contentstars;
+}
 
-    getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
-        if (resultObj.status === "ok") {
-            comments = resultObj.data;
-        }
-    });
+document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
         if (resultObj.status === "ok") {
             product = resultObj.data;
-            let productNameHTML = document.getElementById("productName");
-            let productDescriptionHTML = document.getElementById("productDescription");
-            let productCostHTML = document.getElementById("productCost");
-            let productCountHTML = document.getElementById("productCount");
-            let relatedProductsHTML = document.getElementById("relatedProducts");
-            let productCommentsHTML = document.getElementById("productComments");
+            document.getElementById("productName").innerHTML = `<b> ${product.name}</b>`;
+            document.getElementById("productDescription").innerHTML = product.description;
+            document.getElementById("productCost").innerHTML = `<h1 style="color:blue"> ${product.cost}  ${product.currency}</h1>`;
+            document.getElementById("productCount").innerHTML = product.soldCount;
 
-            productNameHTML.innerHTML = `<b> ${product.name}</b>`;
-            productDescriptionHTML.innerHTML = product.description;
-            productCostHTML.innerHTML = `<h4 style="color:blue"> ${product.cost}  ${product.currency}</h4>`;
-            productCountHTML.innerHTML = product.soldCount;
-
-            let contentcomments = "";
-            for (let i = 0; i < comments.length; i++) {
-                stars = 5;
-                contentstars = "";
-                for (let j = 0; j < comments[i].score; j++) {
-                    stars -= 1;
-                    contentstars += `<span class="fa fa-star checked"></span>`
-                }
-                for (let k = 0; k < stars; k++) {
-                    contentstars += `<span class="fa fa-star"></span>`
-                }
-
-                contentcomments += `
-
+            getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
+                if (resultObj.status === "ok") {
+                    comments = resultObj.data;
+                    let contentcomments = "";
+                    for (let i = 0; i < comments.length; i++) {
+                        ShowStars(comments[i].score);
+                        contentcomments += `
             <div class="list-group-item list-group-item-action" style="background-color:#cfe2f3">
             <div class="row">
                 <div class="col">
@@ -74,58 +62,69 @@ document.addEventListener("DOMContentLoaded", function (e) {
             </div>
         </div>
          `
-            }
-            productCommentsHTML.innerHTML = contentcomments;
+                    }
+                    document.getElementById("productComments").innerHTML = contentcomments; //Muestra de comentarios
+                }
+            });
+
             //Muestro las imagenes en forma de galería
             showImagesGallery(product.images);
 
+            getJSONData(PRODUCTS_URL).then(function (resultObj) { //Cargo list de todos los productos
+                if (resultObj.status === "ok") {
+                    products = resultObj.data;
 
-            let contenttorelated = "";
-            let related = product.relatedProducts;
-            for (let i = 0; i < related.length; i++) {
-                contenttorelated += `
-            <div class="list-group-item list-group-item-action">
+                    let contenttorelated = "";
+                    let related = product.relatedProducts;
+
+                    for (let i = 0; i < related.length; i++) { //Recorro array de productos relacionados
+                        //Valores indican posiciones en lista de productos
+                        contenttorelated += `
+            <div class="list-group-item list-group-item-action" onclick="ShowProductInfo()">
             <div class="row">
                 <div class="col-3">
-                    <img src="${products[i].imgSrc}" alt="${products[i].description}" class="img-thumbnail">
+                    <img src="${products[related[i]].imgSrc}" alt="${products[related[i]].description}" class="img-thumbnail">
                 </div>
         
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
-                        <h4 class="mb-1"> ${products[i].name}  </h4>
-                        <small class="text-muted"> ${products[i].soldCount} artículos</small>
+                        <h4 class="mb-1"> ${products[related[i]].name}  </h4>
+                        <small class="text-muted"> ${products[related[i]].soldCount} artículos</small>
                       </div>
-                      <p class="mb-1"> ${products[i].description} </p>
+                      <p class="mb-1"> ${products[related[i]].description} </p>
                      <div>
-                        <h4 style="color:blue"> ${products[i].cost}  ${products[i].currency}</h4>   
+                        <h4 style="color:blue"> ${products[related[i]].cost}  ${products[related[i]].currency}</h4>   
                     </div>
         
                 </div>
             </div>
         </div>
          `
-            }
-            relatedProductsHTML.innerHTML = contenttorelated;
+                    }
+                    document.getElementById("relatedProducts").innerHTML = contenttorelated;
+
+                }
+            });
 
         }
     });
-    document.getElementById("submitcomment").addEventListener("click", function () { //Selección de filtrado
-        contentcomments = document.getElementById("productComments").innerHTML;
-        var ranking = document.getElementsByName('demo');
-        for (i = 0; i < ranking.length; i++) {
+
+    document.getElementById("submitcomment").addEventListener("click", function () { //Envío/concatenación de comentario
+        contentcomments = document.getElementById("productComments").innerHTML; //Extraigo el contenido de la sección comentarios
+        var ranking = document.getElementsByName('stars'); //Botones para ingresar estrellas
+
+        for (i = 0; i < ranking.length; i++) { //Recorro los botones, almaceno el valor del chequeado
             if (ranking[i].checked) {
-                score = ranking[i].value;
+                scorevalue = ranking[i].value;
             }
         }
 
-        stars = 5;
-        contentstars = "";
-        for (let j = 0; j < score; j++) {
-            stars -= 1;
-            contentstars += `<span class="fa fa-star checked"></span>`
-        }
-        for (let k = 0; k < stars; k++) {
-            contentstars += `<span class="fa fa-star"></span>`
+        ShowStars(scorevalue); //Llamo a función para generar contenido de estrellas
+
+        if (sessionStorage.getItem('user') != "" && sessionStorage.getItem('password') != "") {//Almaceno el usuario, según modo de autenticación empleado
+            var user = sessionStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
+        } else {
+            var user = sessionStorage.getItem('Guser')
         }
 
         contentcomments += `
@@ -133,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
      <div class="row">
          <div class="col">
              <div class="d-flex w-100 justify-content-between">
-                 <h4 class="mb-1"> ${sessionStorage.getItem('user')} ${contentstars}</h4>
+                 <h4 class="mb-1"> ${user} ${contentstars}</h4>
                  <small> ${new Date().toLocaleString('en-CA', { hour12: false })}</small>
                </div>
                <p class="mb-1"> ${document.getElementById("descriptioncomment").value} </p>
@@ -144,8 +143,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
      </div>
  </div>
   `
-        document.getElementById("productComments").innerHTML = contentcomments;
-        document.getElementById("commentform").reset();
-
+        document.getElementById("productComments").innerHTML.required = contentcomments; //Reasigno el contenido, incluyendo nuevo comentario
+        alert("¡Tu comentario fue enviado! Gracias por la contribución")
+        document.getElementById("commentform").reset(); //Cuando se envía un comentario nuevo vacía el formulario
     });
+
 });
