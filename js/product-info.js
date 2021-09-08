@@ -126,8 +126,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         } else {
             var user = sessionStorage.getItem('Guser')
         }
-        alert(user)
-
         contentcomments += `
      <div class="list-group-item list-group-item-action" style="background-color:#cfe2f3">
      <div class="row">
