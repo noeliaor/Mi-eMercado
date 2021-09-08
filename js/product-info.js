@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         } else {
             var user = sessionStorage.getItem('Guser')
         }
+        alert(user)
 
         contentcomments += `
      <div class="list-group-item list-group-item-action" style="background-color:#cfe2f3">
@@ -143,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
      </div>
  </div>
   `
-        document.getElementById("productComments").innerHTML.required = contentcomments; //Reasigno el contenido, incluyendo nuevo comentario
+        document.getElementById("productComments").innerHTML = contentcomments; //Reasigno el contenido, incluyendo nuevo comentario
         alert("¡Tu comentario fue enviado! Gracias por la contribución")
         document.getElementById("commentform").reset(); //Cuando se envía un comentario nuevo vacía el formulario
     });
