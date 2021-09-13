@@ -42,6 +42,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
             document.getElementById("productCost").innerHTML = `<h1 style="color:blue"> ${product.cost}  ${product.currency}</h1>`;
             document.getElementById("productCount").innerHTML = product.soldCount;
 
+  //Muestro las imagenes en forma de galería
+            showImagesGallery(product.images);
+            
             getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
                 if (resultObj.status === "ok") {
                     comments = resultObj.data;
@@ -67,8 +70,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 }
             });
 
-            //Muestro las imagenes en forma de galería
-            showImagesGallery(product.images);
+          
 
             getJSONData(PRODUCTS_URL).then(function (resultObj) { //Cargo list de todos los productos
                 if (resultObj.status === "ok") {
@@ -112,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     document.getElementById("submitcomment").addEventListener("click", function () { //Envío/concatenación de comentario
         contentcomments = document.getElementById("productComments").innerHTML; //Extraigo el contenido de la sección comentarios
         var ranking = document.getElementsByName('stars'); //Botones para ingresar estrellas
-
+        scorevalue=0; //El puntaje inicial es cero, se aplica al caso en que no se hayan seleccionado estrellas.
         for (i = 0; i < ranking.length; i++) { //Recorro los botones, almaceno el valor del chequeado
             if (ranking[i].checked) {
                 scorevalue = ranking[i].value;
@@ -143,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
  </div>
   `
         document.getElementById("productComments").innerHTML = contentcomments; //Reasigno el contenido, incluyendo nuevo comentario
-        alert("¡Tu comentario fue enviado! Gracias por la contribución")
+        alert("¡Tu comentario fue enviado! Gracias por la contribución.")
         document.getElementById("commentform").reset(); //Cuando se envía un comentario nuevo vacía el formulario
     });
 

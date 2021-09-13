@@ -138,9 +138,10 @@ document.addEventListener("DOMContentLoaded", async function (e) {
   });
 
   //Desafiate
-  buscador.addEventListener("keyup", (event) => { //Cada vez que se presiona y suelta una tecla en el input para búsquedas
+  buscador.addEventListener("input", (event) => { //Solución para que se detecte cualquier cambio (ejemplo clickeo en cruz de formulario: evento)
     showProductsList(products, OrderPreference, OrderBy, minCost, maxCost, buscador.value); //Realiza la muestra de productos con la cadena a buscar
-});
+    ToSearch=buscador.value; //Actualizo variable para que se considere en todo momento el texto del buscador
+  });
 
 });
 
