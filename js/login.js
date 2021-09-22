@@ -4,7 +4,10 @@
 var AccessButton = document.getElementsByClassName("AccessButton")[0];
 
 document.addEventListener("DOMContentLoaded", function (e) {
-
+  sessionStorage.clear(); //Cada vez que se ingresa al login limpio los datos de sesión almacenados;
+  TxtUser="";
+  Txtpassword="";
+  
   AccessButton.addEventListener("click", () => { //Al presionar en el botón de ingreso:
     //Se extraen los datos que permiten autenticar la sesión, puede ser mediante Google o directamente desde la página:
 

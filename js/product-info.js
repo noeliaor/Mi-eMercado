@@ -3,21 +3,32 @@
 //elementos HTML presentes.
 function showImagesGallery(array) {//Recorre una array de imágenes, concatena su contenido y las muestra
 
-    let htmlContentToAppend = "";
+    let htmlContentToAppend = `<div id="carouselExampleInterval" class="carousel slide  carousel-fade" data-ride="carousel">
+    <div class="carousel-inner">  <div class="carousel-item active">
+   <img src="` + array[0] + `" style="margin-left:120px">
+  </div>`;
 
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 1; i < array.length; i++) {
         let imageSrc = array[i];
 
         htmlContentToAppend += `
-        <div class="col-lg-3 col-md-4 col-6">
-            <div class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" src="` + imageSrc + `" alt="">
-            </div>
-        </div>
+      <div class="carousel-item">
+     <img src="` + imageSrc + `"  style="margin-left:120px">
+    </div>
         `
-
-        document.getElementById("productImagesGallery").innerHTML = htmlContentToAppend;
-    }
+      
+    } 
+    htmlContentToAppend += ` </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev" style="margin-left:120px">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>`;
+    document.getElementById("productImagesGallery").innerHTML = htmlContentToAppend;
 }
 
 function ShowStars(score) { //Recibe una puntuación y genera el contenido necesario para visualizarla como estrellas
@@ -82,20 +93,18 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     for (let i = 0; i < related.length; i++) { //Recorro array de productos relacionados
                         //Valores indican posiciones en lista de productos
                         contenttorelated += `
-            <div class="list-group-item list-group-item-action" onclick="ShowProductInfo()">
+            <div class="list-group-item list-group-item-action, list-related" onclick="ShowProductInfo()">
             <div class="row">
                 <div class="col-3">
-                    <img src="${products[related[i]].imgSrc}" alt="${products[related[i]].description}" class="img-thumbnail">
+                    <img src="${products[related[i]].imgSrc}" alt="${products[related[i]].description}" class="img-thumbnail, related-img">
                 </div>
         
                 <div class="col">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h4 class="mb-1"> ${products[related[i]].name}  </h4>
-                        <small class="text-muted"> ${products[related[i]].soldCount} artículos</small>
-                      </div>
-                      <p class="mb-1"> ${products[related[i]].description} </p>
-                     <div>
-                        <h4 style="color:blue"> ${products[related[i]].cost}  ${products[related[i]].currency}</h4>   
+                    <div >
+                        <h4 class="mb-1, related-text"><b>${products[related[i]].name} </b></h4>
+                        </br>
+                        </br>
+                        <h4 class="related-text" style="color:blue"> ${products[related[i]].cost}  ${products[related[i]].currency}</h4>   
                     </div>
         
                 </div>

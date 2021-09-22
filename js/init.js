@@ -46,14 +46,30 @@ var getJSONData = function(url){
 
 document.addEventListener("DOMContentLoaded", function(e){
 let ToUser = document.getElementsByClassName("container d-flex flex-column flex-md-row justify-content-between")[0]; //Identifico barra superior que contiene las opciones (prod,cat,etc)
+ToUser.removeChild(ToUser.lastElementChild); //Elimino el último hijo agregado al div (que es la opción "Mi carrito" y se agrega al menú desplegable)
+
 let content = ToUser.innerHTML; //Extraigo contenido del elemento
+
 
 if (sessionStorage.getItem('user')!="" && sessionStorage.getItem('password')!=""){//Almaceno el usuario, según modo de autenticación empleado
   var user=sessionStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
 }else{ 
   var user=sessionStorage.getItem('Guser')
 }
+
+
+
 //Agrego al contenido extraido un elemento span que contendrá el nombre de usuario
- content+= `<span class="py-2 d-none d-md-inline-block" id="User"><img class="circular--square" src="img/user.png" /> ${user} </span>`;
+ content+= `<div class="dropdown">
+ <a class="btn btn-secondary dropdown-toggle, d-none d-md-inline-block" id="User" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <img class="circular--square" src="img/user.png" /> ${user} 
+ </a>
+
+ <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+   <a class="dropdown-item" id="ToCart" href="cart.html">Mi carrito</a>
+   <a class="dropdown-item" id="ToProfile" href="my-profile.html">Mi perfil</a>
+   <a class="dropdown-item" id="ToLogin" href="login.html">Cerrar sesión</a>
+ </div>`;
  ToUser.innerHTML = content; //Redefino el contenido en la barra superior, incluyendo el usuario
+ 
 });

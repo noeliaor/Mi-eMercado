@@ -209,3 +209,16 @@ label[for]:hover {
 .rating [type="radio"]:nth-of-type(5):focus ~ .stars label:nth-of-type(5) {
   color: darkorange;
 }
+
+.list-related{
+  height: 100px !important; 
+  width: 500px !important;
+  float: left;
+}
+.related-img{
+height: 100px;
+width: auto;  
+}
+.related-text{
+float: right;
+}

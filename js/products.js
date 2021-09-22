@@ -56,12 +56,12 @@ function showProductsList(array, SortPreference, concept, Minimo, Maximo, Search
 
         <div class="col">
             <div class="d-flex w-100 justify-content-between">
-                <h4 class="mb-1"> ${product.name}  </h4>
+                <h3 class="mb-1">${product.name}  </h3>
                 <small class="text-muted"> ${product.soldCount} artículos</small>
               </div>
               <p class="mb-1"> ${product.description} </p>
              <div>
-                <h4 style="color:blue"> ${product.cost}  ${product.currency}</h4>   
+                <h3 style="color:blue"> ${product.cost}  ${product.currency}</h3>   
             </div>
 
         </div>
