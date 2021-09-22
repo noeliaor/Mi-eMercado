@@ -50,15 +50,6 @@ ToUser.removeChild(ToUser.lastElementChild); //Elimino el último hijo agregado 
 
 let content = ToUser.innerHTML; //Extraigo contenido del elemento
 
-
-if (sessionStorage.getItem('user')!="" && sessionStorage.getItem('password')!=""){//Almaceno el usuario, según modo de autenticación empleado
-  var user=sessionStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
-}else{ 
-  var user=sessionStorage.getItem('Guser')
-}
-
-
-
 //Agrego al contenido extraido un elemento span que contendrá el nombre de usuario
  content+= `<div class="dropdown">
  <a class="btn btn-secondary dropdown-toggle, d-none d-md-inline-block" id="User" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,4 +63,12 @@ if (sessionStorage.getItem('user')!="" && sessionStorage.getItem('password')!=""
  </div>`;
  ToUser.innerHTML = content; //Redefino el contenido en la barra superior, incluyendo el usuario
  
+if (sessionStorage.getItem('user')!="" && sessionStorage.getItem('password')!=""){//Almaceno el usuario, según modo de autenticación empleado
+  var user=sessionStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
+}else{ 
+  var user=sessionStorage.getItem('Guser')
+}
+
+
+
 });
