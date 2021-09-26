@@ -50,10 +50,19 @@ ToUser.removeChild(ToUser.lastElementChild); //Elimino el último hijo agregado 
 
 let content = ToUser.innerHTML; //Extraigo contenido del elemento
 
+
+if (sessionStorage.getItem('user')!="" && sessionStorage.getItem('password')!=""){//Almaceno el usuario, según modo de autenticación empleado
+  var user=sessionStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
+}else{ 
+  var user=sessionStorage.getItem('Guser')
+}
+
+
+
 //Agrego al contenido extraido un elemento span que contendrá el nombre de usuario
  content+= `<div class="dropdown">
  <a class="btn btn-secondary dropdown-toggle, d-none d-md-inline-block" id="User" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  <img class="circular--square" src="img/user.png" /> ${user} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16" style="color:black">
+  <img class="circular--square" src="img/user.png" /> ${user} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
   <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 </svg>
  </a>
@@ -65,12 +74,4 @@ let content = ToUser.innerHTML; //Extraigo contenido del elemento
  </div>`;
  ToUser.innerHTML = content; //Redefino el contenido en la barra superior, incluyendo el usuario
  
-if (sessionStorage.getItem('user')!="" && sessionStorage.getItem('password')!=""){//Almaceno el usuario, según modo de autenticación empleado
-  var user=sessionStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
-}else{ 
-  var user=sessionStorage.getItem('Guser')
-}
-
-
-
 });
