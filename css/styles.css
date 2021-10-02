@@ -237,5 +237,9 @@ td, th {
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: #bed8ff;
+}
+.notcenter{
+  text-align: left;
+  margin-left: 20px;
 }

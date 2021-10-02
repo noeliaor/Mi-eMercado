@@ -44,10 +44,89 @@
     </div>
   </nav>
 
-    <main role="main" class="pb-5">
-<div class="text-center p-4">   <h2>Mi carrito</h2></div>
-<div id="tocart"></div>
-</main>
+  <main role="main" class="pb-5">
+    <div class="text-center p-4">
+      <h2>Mi carrito</h2>
+    </div>
+    <div id="tocart"></div>
+    <div>
+      <div>
+        <div class="text-center p-4">
+          <h4 style="text-align: left; margin-left: 178px;">Método de envío</h4>
+        </div>
+        `<table>
+          <tr>
+           <th class="notcenter">Dirección</th>
+          </tr>
+          <tr>
+            <td class="notcenter">
+                <form style="margin-top: 24px;">
+                  <label for="pais">País: </label>
+                  <input type="text" id="paisdir" name="paisdir" style="margin-left: 32px;"><br>
+                  <label for="calle">Calle: </label>
+                  <input type="text" id="calledir" name="calledir"  style="margin-left: 27px;"><br>
+                  <label for="numero">Número: </label>
+                  <input type="text" id="numdir" name="numdir"  style="margin-left: 7px;"><br>
+                  <label for="esquina">Esquina: </label>
+                  <input type="text" id="esqdir" name="esqdir"  style="margin-left: 6px;"><br><br>
+                </form>
+            </td>
+        </tr>
+        </table>`
+        `<table>
+          <tr>
+            <th>Tipo de envío</th>
+            <th>Costo</th>
+          </tr>
+          <tr>
+            <td>
+              <form>
+                <p style="margin-left: 55px;">Elije cómo recibir tu compra:</p>
+                  <input type="radio" id="premium" name="shipment" value="0" style="margin-left: 10px;">
+                  <label for="premium">Premium (2-5 días)</label><br>
+                  <input type="radio" id="express" name="shipment" value="1" style="margin-left: 5px;">
+                  <label for="express">Express (5-8 días)</label><br>
+                  <input type="radio" id="standard" name="shipment" value="2" style="margin-left: 30px;">
+                  <label for="standard">Standard (12-15 días)</label>
+                <br>
+              </form>
+            </td>
+          <td id="shipment"> </td>
+        </tr>
+        </table>`
+        <div class="text-center p-4">
+          <h4 style="text-align: left; margin-left: 178px;">Método de pago</h4>
+        </div>
+        `<table>
+          <tr>
+          </tr>
+          <tr>
+            <td style="text-align:left">
+              <form >
+                <br>
+                <p style="margin-left: 20px;">Elije cómo pagar tu compra:</p>
+                  <input type="radio" id="card" name="payment" value="0" style="margin-left: 10px;">
+                  <label for="card">Tarjeta de crédito</label><br>
+                  <input type="radio" id="bank" name="payment" value="1" style="margin-left: 10px;">
+                  <label for="bank">Transferencia bancaria</label><br>
+                <br>
+              </form>
+            </td>
+        </tr>
+        </table>`
+        <div class="text-center p-4">
+          <h4 style="text-align: left; margin-left: 178px;">Total</h4>
+        </div>
+        `<table>
+          <tr>
+          </tr>
+          <tr>
+            <td id="totalspace" style="text-align:left">
+            </td>
+        </tr>
+        </table>`
+      </div>
+  </main>
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>
