@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
   let OrderBy = "cost";
   let buscador = document.getElementById("buscador");
   let ToSearch = buscador.value;
-  var products = (await getJSONData(PRODUCTS_URL)).data; //Realizo la petición y guardo result.data en una variable
+  let products = (await getJSONData(PRODUCTS_URL)).data; //Realizo la petición y guardo result.data en una variable
   showProductsList(products, OrderPreference, OrderBy, minCost, maxCost, ToSearch); //Al ingresar al html se presentan los productos,
   //ordenados por defecto
 
