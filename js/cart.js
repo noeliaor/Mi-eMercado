@@ -2,39 +2,73 @@
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", async function (e) {
-  let cartinfo = (await getJSONData(CART_INFO_URL)).data.articles; //Realizo la petición y guardo result.data en una variable
+  let total = 0;
+  let cartinfo = (await getJSONData("https://japdevdep.github.io/ecommerce-api/cart/654.json")).data.articles; //Realizo la petición y guardo result.data en una variable
   let divtocart = document.getElementById("tocart");
-  divtocart.innerHTML = `<table>
+  let content;
+  let index = 0;
+  let productssubtotal = [];
+  let costsuyu = [];
+  let productscount = [];
+  content = `<table> 
     <tr>
+    <th></th>
       <th>Producto</th>
       <th>Precio unitario</th>
       <th>Cantidad</th>
       <th>Total</th>
-    </tr>
-    <tr>
-      <td> <img src="${cartinfo[0].src}" style="width:100px" class="img-thumbnail">  ${cartinfo[0].name}</td>
-      <td>${cartinfo[0].unitCost} ${cartinfo[0].currency}</td>
-      <td><input id="productcount" size="2" value="2"></input></td>
-      <td id="tosubtotal">${parseInt(cartinfo[0].unitCost) * parseInt(cartinfo[0].count)} ${cartinfo[0].currency}</td>
-    </tr>
-  </table>`
-  let subtotal=parseInt(cartinfo[0].unitCost) * parseInt(cartinfo[0].count);
+    </tr>`
 
+  for (let item of cartinfo) { //Recorro JSON con información de los productos
+    if (item.currency == "USD") { //Si moneda es dólares
+      costsuyu[index] = parseInt(item.unitCost) * 40; //Convierto costo unitario a UYU
+      productssubtotal[index] = costsuyu[index] * parseInt(item.count); //Calculo subtotal
 
-  let costs=[0.15,0.07,0.05];
-  var types = document.getElementsByName('shipment');
-  document.addEventListener('change',function(){
-    for (i = 0; i < types.length; i++) {
-      if (types[i].checked) {
-        document.getElementById("shipment").innerHTML = `${parseInt(subtotal*costs[types[i].value])} UYU`;
-      }
+    } else { //Si moneda en pesos
+      costsuyu[index] = parseInt(item.unitCost);
+      productssubtotal[index] = costsuyu[index] * parseInt(item.count);
+
     }
-  document.getElementById("totalspace").innerHTML=`El total a pagar es de <b> ${sutotal} UYU </b>`;
-  });
-  document.getElementById("productcount").addEventListener('keyup',function(){
-  document.getElementById("tosubtotal").innerHTML=`${parseInt(cartinfo[0].unitCost) * parseInt(document.getElementById("productcount").value)} ${cartinfo[0].currency}`;
-  subtotal=parseInt(cartinfo[0].unitCost) * parseInt(document.getElementById("productcount").value);
-  document.getElementById("shipment").innerHTML = `${parseInt(subtotal*costs[types[i].value])} UYU`;
-  });
-  
+    productscount[index] = item.count;
+    content += `<tr class="productslist" id="product${index}"> <td> <img src="${item.src}" style="width:100px;float: left" class="img-thumbnail"></td> <td>${item.name}</td>
+     <td>${costsuyu[index]} UYU</td>
+      <td><input type="number" id="productcount${index}" style="width: 60px" value=${item.count} min="0"></input></td>
+     <td id="tosubtotal${index}">${costsuyu[index] * parseInt(item.count)} UYU</td>
+  </tr>` //Concateno información de cada producto, como fila de tabla
+    index += 1; //Incremento índice para ocupar vector de subtotales
+
+  }
+  total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo el total sumando los subtotales de cada producto
+  content += `</table>`;
+  divtocart.innerHTML = content; //Asigno contenido
+  document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total} UYU</span> </b>`; //Muestro el total de la compra
+
+  for (let i = 0; i < cartinfo.length; i++) {
+    document.getElementById(`productcount${i}`).addEventListener('change', function () { //Cambios en la cantidad de algún 
+      productscount[i] = parseInt(document.getElementById(`productcount${i}`).value);
+      if (parseInt(document.getElementById(`productcount${i}`).value) == 0) {
+        document.getElementById(`product${i}`).innerHTML = ""; //Si la cantidad es nula se elimina el objeto del carrito
+      } else {
+
+        document.getElementById(`tosubtotal${i}`).innerHTML = `${costsuyu[i] * parseInt(document.getElementById(`productcount${i}`).value)} UYU`;
+        productssubtotal[i] = costsuyu[i] * parseInt(document.getElementById(`productcount${i}`).value); //Vuelvo a calcular el subtotal del producto cambiado
+
+      } total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo nuevo total
+      document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total} UYU</span> </b>`; //Muestro el total de la compra
+      //let sum = 0;
+      function checkcount(element) {
+        return element == 0;
+      }
+         // Returns false
+
+
+      if ( productscount.every(checkcount)) {
+        divtocart.innerHTML = `<br><h3 style="text-align: center; color:red"> ¡Ups! Tu carrito está vacío &#128546</h3><br>
+        <h4 style="text-align: center; color:red">Elije tu producto <a href="products.html">aquí</a></h4>`;
+      }
+
+    });
+
+  }
 });
+

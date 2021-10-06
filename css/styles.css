@@ -236,10 +236,17 @@ td, th {
   padding: 8px;
 }
 
-tr:nth-child(even) {
+.productslist {
   background-color: #bed8ff;
 }
 .notcenter{
   text-align: left;
   margin-left: 20px;
+}
+.to-total{
+    border: #b0b1b8 1px solid;
+    background-color: rgb(206, 231, 255);
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+    text-align: center !important;
 }
