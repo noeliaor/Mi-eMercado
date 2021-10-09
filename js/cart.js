@@ -38,10 +38,9 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     index += 1; //Incremento índice para ocupar vector de subtotales
 
   }
-   content += `</table>`;
-
+  total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo el total sumando los subtotales de cada producto
+  content += `</table>`;
   divtocart.innerHTML = content; //Asigno contenido
-   total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo el total sumando los subtotales de cada producto
   document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total} UYU</span> </b>`; //Muestro el total de la compra
 
   for (let i = 0; i < cartinfo.length; i++) {
@@ -56,10 +55,11 @@ document.addEventListener("DOMContentLoaded", async function (e) {
 
       } total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo nuevo total
       document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total} UYU</span> </b>`; //Muestro el total de la compra
+      //let sum = 0;
       function checkcount(element) {
-        return element == 0; //Devuelvo si el elemento vale cero
+        return element == 0;
       }
-
+         // Returns false
 
 
       if ( productscount.every(checkcount)) {
