@@ -24,8 +24,8 @@ function onSuccess(googleUser) { //Función de devolución de llamada una vez qu
             var profileHTML = '<h3>Bienvenido/a ' + resp.given_name + '!</h3>';
             profileHTML += '<p style="color:red">¡Presiona ingresar!</p>' + '<img src="' + resp.picture + '"/><p><b>Nombre: </b></p><p>' + resp.name + '</p><p><b>Correo electrónico:</b></p><p>' + resp.email + '</p> <a href="javascript:void(0);" onclick="signOut();">Cerrar sesión</a><p>';
            
-            sessionStorage.setItem('Guser',  resp.name);  //Almaceno como datos de sesión el nombre y email, se emplean para verificar el ingreso en verification.js
-            sessionStorage.setItem('Gmail', resp.email); 
+            localStorage.setItem('Guser',  resp.name);  //Almaceno como datos de sesión el nombre y email, se emplean para verificar el ingreso en verification.js
+            localStorage.setItem('Gmail', resp.email); 
 
             document.getElementsByClassName("userContent")[0].innerHTML = profileHTML;
             document.getElementById("gSignIn").style.display = "none";
@@ -46,7 +46,7 @@ function signOut() {
         document.getElementsByClassName("userContent")[0].innerHTML = '';
         document.getElementsByClassName("userContent")[0].style.display = "none";
         document.getElementById("gSignIn").style.display = "block";
-        sessionStorage.clear();
+       localStorage.clear();
     });
 
     auth2.disconnect();

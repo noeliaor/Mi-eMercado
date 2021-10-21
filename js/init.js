@@ -51,10 +51,10 @@ ToUser.removeChild(ToUser.lastElementChild); //Elimino el último hijo agregado 
 let content = ToUser.innerHTML; //Extraigo contenido del elemento
 
 
-if (sessionStorage.getItem('user')!="" && sessionStorage.getItem('password')!=""){//Almaceno el usuario, según modo de autenticación empleado
-  var user=sessionStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
+if (localStorage.getItem('user')!="" && localStorage.getItem('password')!=""){//Almaceno el usuario, según modo de autenticación empleado
+  var user=localStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
 }else{ 
-  var user=sessionStorage.getItem('Guser')
+  var user=localStorage.getItem('Guser')
 }
 
 

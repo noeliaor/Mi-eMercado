@@ -20,7 +20,7 @@ const showData = (array, SortPreference, concept) => { //Ordena los elementos de
 const FilterData = (DataName, DataDescription, Search) => { //Esta función busca palabras en dos elementos de información indicados
   let result = 1; //Inicialmente considero que hay alguna coincidencia
   let SearchSplit = Search.split(" ") //divido la cadena en palabras para reconocer palabras sueltas
-  for (let item of SearchSplit) { 
+  for (let item of SearchSplit) {
     if (result != 0) { //Si aún no ha descoincidido con la búsqueda
       if (DataName.toLowerCase().includes(item.toLowerCase()) || DataDescription.toLowerCase().includes(item.toLowerCase())) { //OBS: Las cadenas se convierten a minúscula para que la búsqueda no sea case sensitive;
         result = 1; //Si alguno de los dos elementos (en este caso descripción y nombre de producto) contiene la búsqueda, retorna 1 (verdadero)
@@ -31,12 +31,12 @@ const FilterData = (DataName, DataDescription, Search) => { //Esta función busc
     }
   };
   return result; //Devuelve 1 si todas las palabras se encuentran en descripción y/o nombre, 0 si alguna no se encuentra.
- 
+
 };
 //---------------------------------------------------//
 
 function showProductsList(array, SortPreference, concept, Minimo, Maximo, Search) {
-  let htmlContentToAppend = ""
+  let htmlContentToAppend = `<div class="row" style="padding:3em">`
   for (let i = 0; i < array.length; i++) {
     let product = showData(array, SortPreference, concept)[i]; //Recibe la array ordenada y la almacena
 
@@ -44,32 +44,35 @@ function showProductsList(array, SortPreference, concept, Minimo, Maximo, Search
     if (product.cost >= Minimo && product.cost <= Maximo && FilterData(product.name, product.description, Search) == 1) { //Sólo aquellos productos con precios en el rango definido,
       //Y que contienen en desc. o nombre la palabra buscada. 
       //se van a mostrar (concatenar al contenido)
-      
+
       //Se agrega id para identificar el contenedor de cada producto, y evento de clic.
 
       htmlContentToAppend += `
-    <div id=${product.name} class="list-group-item list-group-item-action" onclick="ShowProductInfo()"> 
-    <div class="row">
-        <div class="col-3">
-            <img src="${product.imgSrc}" alt="${product.description}" class="img-thumbnail">
-        </div>
 
-        <div class="col">
+    <div id=${product.name} class="col-md-3 card shadow-sm text-break"  style="padding:3em" onclick="ShowProductInfo()"> 
+    <div class="row" style="float:right">
+    <small class="text-muted" > ${product.soldCount} artículos</small>
+    </div>
+    <p></p>
+        <div class="row">
+            <img style="max-width:100%;height:auto" src="${product.imgSrc}" alt="${product.description}" >
+        </div>
+        <br></br>
+        <div class="row">
             <div class="d-flex w-100 justify-content-between">
-                <h3 class="mb-1">${product.name}  </h3>
-                <small class="text-muted"> ${product.soldCount} artículos</small>
+                <h4 class="mb-1">${product.name}  </h4>
+
               </div>
               <p class="mb-1"> ${product.description} </p>
              <div>
                 <h3 style="color:blue"> ${product.cost}  ${product.currency}</h3>   
             </div>
-
         </div>
-    </div>
 </div>
  `}
   }
-  document.getElementsByClassName("container p-5")[0].innerHTML = htmlContentToAppend; //Asigna el contenido
+  htmlContentToAppend += `</div>`
+  document.getElementById("listofproducts").innerHTML = htmlContentToAppend; //Asigna el contenido
 }
 
 
@@ -140,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
   //Desafiate
   buscador.addEventListener("input", (event) => { //Solución para que se detecte cualquier cambio (ejemplo clickeo en cruz de formulario: evento)
     showProductsList(products, OrderPreference, OrderBy, minCost, maxCost, buscador.value); //Realiza la muestra de productos con la cadena a buscar
-    ToSearch=buscador.value; //Actualizo variable para que se considere en todo momento el texto del buscador
+    ToSearch = buscador.value; //Actualizo variable para que se considere en todo momento el texto del buscador
   });
 
 });

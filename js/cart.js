@@ -2,8 +2,8 @@
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", async function (e) {
-  let total = 0;
   let cartinfo = (await getJSONData("https://japdevdep.github.io/ecommerce-api/cart/654.json")).data.articles; //Realizo la petición y guardo result.data en una variable
+  let total = 0;
   let divtocart = document.getElementById("tocart");
   let content;
   let index = 0;
@@ -38,9 +38,10 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     index += 1; //Incremento índice para ocupar vector de subtotales
 
   }
-  total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo el total sumando los subtotales de cada producto
   content += `</table>`;
   divtocart.innerHTML = content; //Asigno contenido
+  total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo el total sumando los subtotales de cada producto
+
   document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total} UYU</span> </b>`; //Muestro el total de la compra
 
   for (let i = 0; i < cartinfo.length; i++) {
@@ -55,14 +56,11 @@ document.addEventListener("DOMContentLoaded", async function (e) {
 
       } total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo nuevo total
       document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total} UYU</span> </b>`; //Muestro el total de la compra
-      //let sum = 0;
       function checkcount(element) {
         return element == 0;
       }
-         // Returns false
 
-
-      if ( productscount.every(checkcount)) {
+      if (productscount.every(checkcount)) {
         divtocart.innerHTML = `<br><h3 style="text-align: center; color:red"> ¡Ups! Tu carrito está vacío &#128546</h3><br>
         <h4 style="text-align: center; color:red">Elije tu producto <a href="products.html">aquí</a></h4>`;
       }
