@@ -56,7 +56,8 @@ if (localStorage.getItem('user')!="" && localStorage.getItem('password')!=""){//
 }else{ 
   var user=localStorage.getItem('Guser')
     let information = JSON.parse(localStorage.getItem('Profileinfo'));
-    information.names=user;
+    information.names=user.split(" ",1);
+    information.lastnames=user.reverse().split(" ",2).reverse();
   localStorage.setItem('Profileinfo', JSON.stringify(information));//En el localstorage almaceno la información vacía como un nuevo dato
 }
 
