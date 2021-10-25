@@ -50,20 +50,16 @@ ToUser.removeChild(ToUser.lastElementChild); //Elimino el último hijo agregado 
 
 let content = ToUser.innerHTML; //Extraigo contenido del elemento
 
-
+let user;
 if (localStorage.getItem('user')!="" && localStorage.getItem('password')!=""){//Almaceno el usuario, según modo de autenticación empleado
-  var user=localStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
+user=localStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
 }else{ 
-  var user=localStorage.getItem('Guser')
-    let information = JSON.parse(localStorage.getItem('Profileinfo'));
-    information.names=user.split(" ",1);
-    information.lastnames=user.reverse().split(" ",2).reverse();
-  localStorage.setItem('Profileinfo', JSON.stringify(information));//En el localstorage almaceno la información vacía como un nuevo dato
+user=localStorage.getItem('Guser')
 }
 
 
 
-//Agrego al contenido extraido un elemento span que contendrá el nombre de usuario
+//Agrego al contenido extraido un elemento que contendrá el nombre de usuario
  content+= `<div class="dropdown">
  <a style="text-align:center;height:41px; padding-top:8px" class="btn btn-secondary dropdown-toggle, d-none d-md-inline-block" id="User" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   <img class="circular--square" src="img/user.png" /> ${user} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
