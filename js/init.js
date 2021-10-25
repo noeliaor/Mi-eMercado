@@ -55,13 +55,17 @@ if (localStorage.getItem('user')!="" && localStorage.getItem('password')!=""){//
   var user=localStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
 }else{ 
   var user=localStorage.getItem('Guser')
+    let information = JSON.parse(localStorage.getItem('Profileinfo'));
+    information.names=user.split(" ",1);
+    information.lastnames=user.reserve().split(" ",2).reverse();
+  localStorage.setItem('Profileinfo', JSON.stringify(information));//En el localstorage almaceno la información vacía como un nuevo dato
 }
 
 
 
 //Agrego al contenido extraido un elemento span que contendrá el nombre de usuario
  content+= `<div class="dropdown">
- <a class="btn btn-secondary dropdown-toggle, d-none d-md-inline-block" id="User" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ <a style="text-align:center;height:41px; padding-top:8px" class="btn btn-secondary dropdown-toggle, d-none d-md-inline-block" id="User" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   <img class="circular--square" src="img/user.png" /> ${user} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
   <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 </svg>

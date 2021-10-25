@@ -222,7 +222,7 @@ width: auto;
 .related-text{
 float: right;
 }
-table {
+table{
   margin-left: auto;
   margin-right: auto;
   font-family: arial, sans-serif;
@@ -230,13 +230,13 @@ table {
   width: 70%;
 }
 
-td, th {
+td, th{
   border: 1px solid #dddddd;
   text-align: center;
   padding: 8px;
 }
 
-.productslist {
+.productslist{
   background-color: #bed8ff;
 }
 .notcenter{
@@ -249,4 +249,11 @@ td, th {
     font-size: 20px;
     color: rgb(0, 0, 0);
     text-align: center !important;
+}
+
+.user-profile{
+  width: 130px;
+   height:130px;
+   border-radius: 50%;
+   border: black 2px solid;
 }

@@ -1,3 +1,4 @@
+"use strict";
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
@@ -16,8 +17,8 @@ function showImagesGallery(array) {//Recorre una array de imágenes, concatena s
      <img src="` + imageSrc + `"  style="margin-left:120px">
     </div>
         `
-      
-    } 
+
+    }
     htmlContentToAppend += ` </div>
     <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev" style="margin-left:120px">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -32,8 +33,8 @@ function showImagesGallery(array) {//Recorre una array de imágenes, concatena s
 }
 
 function ShowStars(score) { //Recibe una puntuación y genera el contenido necesario para visualizarla como estrellas
-    stars = 5;
-    contentstars = "";
+    let stars = 5;
+    let contentstars = "";
     for (let j = 0; j < score; j++) { //Muestro tantas estrellas como puntaje
         stars -= 1;
         contentstars += `<span class="fa fa-star checked"></span>`
@@ -47,21 +48,21 @@ function ShowStars(score) { //Recibe una puntuación y genera el contenido neces
 document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
         if (resultObj.status === "ok") {
-            product = resultObj.data;
+            let product = resultObj.data;
             document.getElementById("productName").innerHTML = `<b> ${product.name}</b>`;
             document.getElementById("productDescription").innerHTML = product.description;
             document.getElementById("productCost").innerHTML = `<h1 style="color:blue"> ${product.cost}  ${product.currency}</h1>`;
             document.getElementById("productCount").innerHTML = product.soldCount;
 
-  //Muestro las imagenes en forma de galería
+            //Muestro las imagenes en forma de galería
             showImagesGallery(product.images);
-            
+
             getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
                 if (resultObj.status === "ok") {
-                    comments = resultObj.data;
+                    let comments = resultObj.data;
                     let contentcomments = "";
                     for (let i = 0; i < comments.length; i++) {
-                        ShowStars(comments[i].score);
+                        let contentstars = ShowStars(comments[i].score);
                         contentcomments += `
             <div class="list-group-item list-group-item-action" style="background-color:#cfe2f3">
             <div class="row">
@@ -81,11 +82,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 }
             });
 
-          
+
 
             getJSONData(PRODUCTS_URL).then(function (resultObj) { //Cargo list de todos los productos
                 if (resultObj.status === "ok") {
-                    products = resultObj.data;
+                    let products = resultObj.data;
 
                     let contenttorelated = "";
                     let related = product.relatedProducts;
@@ -121,21 +122,21 @@ document.addEventListener("DOMContentLoaded", function (e) {
     });
 
     document.getElementById("submitcomment").addEventListener("click", function () { //Envío/concatenación de comentario
-        contentcomments = document.getElementById("productComments").innerHTML; //Extraigo el contenido de la sección comentarios
-        var ranking = document.getElementsByName('stars'); //Botones para ingresar estrellas
-        scorevalue=0; //El puntaje inicial es cero, se aplica al caso en que no se hayan seleccionado estrellas.
-        for (i = 0; i < ranking.length; i++) { //Recorro los botones, almaceno el valor del chequeado
+        let contentcomments = document.getElementById("productComments").innerHTML; //Extraigo el contenido de la sección comentarios
+        let ranking = document.getElementsByName('stars'); //Botones para ingresar estrellas
+        let scorevalue = 0; //El puntaje inicial es cero, se aplica al caso en que no se hayan seleccionado estrellas.
+        for (let i = 0; i < ranking.length; i++) { //Recorro los botones, almaceno el valor del chequeado
             if (ranking[i].checked) {
                 scorevalue = ranking[i].value;
             }
         }
+        let user;
+        let contentstars = ShowStars(scorevalue); //Llamo a función para generar contenido de estrellas
 
-        ShowStars(scorevalue); //Llamo a función para generar contenido de estrellas
-
-        if (sessionStorage.getItem('user') != "" && sessionStorage.getItem('password') != "") {//Almaceno el usuario, según modo de autenticación empleado
-            var user = sessionStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
+        if (localStorage.getItem('user') != "" && localStorage.getItem('password') != "") {//Almaceno el usuario, según modo de autenticación empleado
+            user = localStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
         } else {
-            var user = sessionStorage.getItem('Guser')
+            user = localStorage.getItem('Guser')
         }
         contentcomments += `
      <div class="list-group-item list-group-item-action" style="background-color:#cfe2f3">

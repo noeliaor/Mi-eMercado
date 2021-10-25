@@ -1,10 +1,12 @@
+"use strict";
 const showData = (array, SortPreference, concept) => { //Ordena los elementos de la array de forma incremental y los almacena en una array.
+ let organized;
   function SortArray(x, y) { //Función que indica cómo ordenar los elementos
     if (x[concept] < y[concept]) { return -1; } //x se ordena antes que y
     if (x[concept] > y[concept]) { return 1; } //x se ordena después
     return 0; //Mantienen posiciones
   }
-  var inorder = array.sort(SortArray); //Almaceno la array ordenada
+  let inorder = array.sort(SortArray); //Almaceno la array ordenada
 
   if (SortPreference == "asc") {
     organized = inorder;
@@ -47,8 +49,10 @@ function showProductsList(array, SortPreference, concept, Minimo, Maximo, Search
 
       //Se agrega id para identificar el contenedor de cada producto, y evento de clic.
 
-      htmlContentToAppend += `
+      //Modificación para contenido responsive, se crea grilla de productos
 
+      //Cada item es agregado como una nueva columna de tamaño mediano, las clases restantes son para el formato de tarjetas y estilo de texto.
+      htmlContentToAppend += `
     <div id=${product.name} class="col-md-3 card shadow-sm text-break"  style="padding:3em" onclick="ShowProductInfo()"> 
     <div class="row" style="float:right">
     <small class="text-muted" > ${product.soldCount} artículos</small>
