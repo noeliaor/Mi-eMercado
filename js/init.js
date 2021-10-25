@@ -52,9 +52,9 @@ let content = ToUser.innerHTML; //Extraigo contenido del elemento
 
 
 if (localStorage.getItem('user')!="" && localStorage.getItem('password')!=""){//Almaceno el usuario, según modo de autenticación empleado
-  let user=localStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
+  var user=localStorage.getItem('user') //En caso de que haya usuario y contraseña en el formulario
 }else{ 
-  let user=localStorage.getItem('Guser')
+  var user=localStorage.getItem('Guser')
     let information = JSON.parse(localStorage.getItem('Profileinfo'));
     information.names=user;
   localStorage.setItem('Profileinfo', JSON.stringify(information));//En el localstorage almaceno la información vacía como un nuevo dato
