@@ -39,7 +39,9 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     index += 1; //Incremento índice para ocupar vector de subtotales
 
   }
-  content += `</table>`;
+  content += `
+  <tr class="productslist"><td><b>Costo de envío:</b></td><td></td><td></td><td></td><td id="shipment"></td></tr>
+  </table>`;
   divtocart.innerHTML = content; //Asigno contenido
   total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo el total sumando los subtotales de cada producto
 
@@ -69,5 +71,47 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     });
 
   }
+
+  //Código para cálculos de envío
+  let costs = [0.15, 0.07, 0.05];  //Porcentajes para cálculo del envío
+  let types = document.getElementsByName('shipment');
+  document.addEventListener('change', function () {
+    // document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de   <span  style="color: #008CBA" >${total} UYU <span></b>`;
+    for (let type of types) {
+      if (type.checked) {
+        document.getElementById("shipment").innerHTML = `${parseInt(total * costs[type.value])} UYU`;
+        document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total + parseInt(total * costs[type.value])} UYU</span> </b>`; //Muestro el total de la compra 
+
+      }
+    }
+  });
+
+  //Botón de compra
+  document.getElementById("OkButton").addEventListener('click', function () {
+    let shipmentOk = validator(document.getElementsByName('shipment')); //Método de envío seleccionado
+    let paymentMethodOk = validator(document.getElementsByName('payment')); //Método de pago seleccionado
+    let directionOk = Boolean(document.getElementById('countrydir').value && document.getElementById('streetdir').value && document.getElementById('numdir').value && document.getElementById('cornerdir').value);
+    let countsOk = true;
+    for (let count of productscount){
+      if (isNaN(count)){
+        countsOk=false;
+      }
+    }
+    if (!(shipmentOk && paymentMethodOk && directionOk && countsOk)) {
+    alert("Por favor, antes de realizar la compra complete todos los campos.");
+    }else{
+  
+    }
+  });
+
 });
 
+const validator = (Buttons) => {
+  let result = false;
+  for (let option of Buttons) {
+    if (option.checked) {
+      result = true;
+    }
+  }
+  return result;
+};
