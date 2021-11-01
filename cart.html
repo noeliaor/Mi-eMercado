@@ -87,20 +87,6 @@
           </tr>
         </table>`
 
-       <!-- <div class="text-center p-4">
-          <h4 style="text-align: left; margin-left: 178px;">Método de pago</h4>
-        </div>
-        `<table>
-          <tr>
-          </tr>
-          <tr class="productslist">
-            <td style="text-align:left">
-             
-            </td>
-          </tr>
-        </table>`-->
-
-        <!-- Button trigger modal -->
 
 <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Métodos de pago
@@ -117,7 +103,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="payinformation">
           <br>
           <p style="margin-left: 20px;">Elije cómo pagar tu compra:</p>
             <input type="radio" id="card" name="payment" value="0" style="margin-left: 10px;">
@@ -125,11 +111,13 @@
             <input type="radio" id="bank" name="payment" value="1" style="margin-left: 10px;">
             <label for="bank">Transferencia bancaria</label><br>
           <br>
+         
         </form>
+         <div id="topayinfo"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar cambios</button>
+        <button type="button" id="savechangesinpayment" class="btn btn-primary">Guardar cambios</button>
       </div>
     </div>
   </div>
@@ -146,7 +134,7 @@
           </tr>
         </table>`
       </div>
-      <div style="text-align: center;">
+      <div id="Ok" style="text-align: center;">
         <button id="OkButton" class="AccessButton">Confirmar compra</button><br>
       </div>
   </main>
