@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     content += `<tr class="productslist" id="product${index}"> <td> <img src="${item.src}" style="width:100px;float: left" class="img-thumbnail"></td> <td>${item.name}</td>
      <td>${costsuyu[index]} UYU</td>
       <td><input type="number" id="productcount${index}" style="width: 60px" value=${item.count} min="0"></input></td>
-     <td id="tosubtotal${index}">${costsuyu[index] * parseInt(item.count)} UYU</td><td onclick="deleteData(${index})" id="trash${index}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
+     <td id="tosubtotal${index}">${costsuyu[index] * parseInt(item.count)} UYU</td><td id="trash${index}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
      <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
    </svg></td>
   </tr>` //Concateno información de cada producto, como fila de tabla
@@ -62,9 +62,9 @@ document.addEventListener("DOMContentLoaded", async function (e) {
       } else {
 
         document.getElementById(`tosubtotal${i}`).innerHTML = `${costsuyu[i] * parseInt(document.getElementById(`productcount${i}`).value)} UYU`;
-    
+
       } total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo nuevo total
-      document.getElementById("subtotal").innerHTML=`${total} UYU`;
+      document.getElementById("subtotal").innerHTML = `${total} UYU`;
       document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total} UYU</span> </b>`; //Muestro el total de la compra
       function checkcount(element) {
         return element == 0;
@@ -74,6 +74,17 @@ document.addEventListener("DOMContentLoaded", async function (e) {
         divtocart.innerHTML = `<br><h3 style="text-align: center; color:red"> ¡Ups! Tu carrito está vacío &#128546</h3><br>
         <h4 style="text-align: center; color:red">Elije tu producto <a href="products.html">aquí</a></h4>`;
       }
+
+    });
+    document.getElementById(`trash${i}`).addEventListener('click', function () {
+      productssubtotal[i]=0; //Elimino el elemento en el ícono indicado y redefino lista 
+      productscount[i]=0;
+      costsuyu[i]=0;
+      document.getElementById(`product${i}`).innerHTML = ""; //Si la cantidad es nula se elimina el objeto del carrito
+
+      total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo nuevo total
+      document.getElementById("subtotal").innerHTML = `${total} UYU`;
+      document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total} UYU</span> </b>`; //Muestro el total de la compra
 
     });
 
@@ -137,24 +148,24 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     }
 
     if (!(shipmentOk && paymentMethodOk && directionOk && countsOk && paymentInfoOk)) { //Indico solución en función de item faltante
-       if (countsOk == false) {
+      if (countsOk == false) {
         alert("Error en la lista de productos. ¡Comprueba las cantidades!")
       } else if (shipmentOk == false) {
         alert("¡Debes seleccionar un método de envío!");
-      }else if (directionOk == false) {
+      } else if (directionOk == false) {
         alert("¡Dirección de envío incompleta!");
-      } 
-       else if (paymentMethodOk == false) {
-      alert("¡Debes seleccionar un método de pago!");
-    }
-    else {
-      alert("¡Información de pago incompleta!")
-    }
+      }
+      else if (paymentMethodOk == false) {
+        alert("¡Debes seleccionar un método de pago!");
+      }
+      else {
+        alert("¡Información de pago incompleta!")
+      }
 
 
-  } else {
-    alert("¡Gracias por su compra!")
-  }
+    } else {
+      alert("¡Gracias por su compra!")
+    }
   });
 
 });
@@ -169,16 +180,5 @@ const validator = (Buttons) => {
   return result;
 };
 
-function deleteData(index) { //Función que se ejecuta cuando se cliquea en el ícono de basura
-            productssubtotal.splice(index, 1); //Elimino el elemento en el ícono indicado y redefino lista 
-          productscount.splice(index, 1);
-         costsuyu.splice(index,1);
-            document.getElementById(`product${index}`).innerHTML = ""; //Si la cantidad es nula se elimina el objeto del carrito
-         
-            total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo nuevo total
-          document.getElementById("subtotal").innerHTML=`${total} UYU`;
-          document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total} UYU</span> </b>`; //Muestro el total de la compra
-     
-    }
 
-    
+
