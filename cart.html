@@ -60,20 +60,20 @@
             <th>Tipo de envío</th>
           </tr>
           <tr class="productslist">
-            <td class="notcenter">
+            <td>
               <form style="margin-top: 24px;">
                 <label for="pais">País: </label>
-                <input type="text" id="countrydir" name="paisdir" style="margin-left: 32px;"><br>
+                <input type="text" id="countrydir" name="paisdir" style="margin-left: 32px; width:130px"><br>
                 <label for="calle">Calle: </label>
-                <input type="text" id="streetdir" name="calledir" style="margin-left: 27px;"><br>
+                <input type="text" id="streetdir" name="calledir" style="margin-left: 27px;width:130px"><br>
                 <label for="numero">Número: </label>
-                <input type="text" id="numdir" name="numdir" style="margin-left: 7px;"><br>
+                <input type="text" id="numdir" name="numdir" style="margin-left: 7px;width:130px"><br>
                 <label for="esquina">Esquina: </label>
-                <input type="text" id="cornerdir" name="esqdir" style="margin-left: 6px;"><br><br>
+                <input type="text" id="cornerdir" name="esqdir" style="margin-left: 6px;width:130px"><br><br>
               </form>
             </td>
             <td>
-              <form>
+              <form id="shipmentmethod">
                 <p style="margin-left: 55px;">Elije cómo recibir tu compra:</p>
                   <input type="radio" id="premium" name="shipment" value="0" style="margin-left: 10px;">
                   <label for="premium">Premium (2-5 días)</label><br>
@@ -116,8 +116,7 @@
          <div id="topayinfo"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" id="savechangesinpayment" class="btn btn-primary">Guardar cambios</button>
+        <button type="button" id="savechangesinpayment" class="btn btn-primary" data-dismiss="modal">Cerrar y guardar cambios</button>
       </div>
     </div>
   </div>
