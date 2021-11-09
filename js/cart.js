@@ -9,11 +9,14 @@ document.addEventListener("DOMContentLoaded", async function (e) {
   let costsuyu = [];
   let productscount = [];
   let identifymethod;
+  let names = [];
+  let imgs = [];
   for (let item of info) { //Recorro JSON con información de los productos
+    names[index] = item.name;
+    imgs[index] = item.src;
     if (item.currency == "USD") { //Si moneda es dólares
       costsuyu[index] = parseInt(item.unitCost) * 40; //Convierto costo unitario a UYU
       productssubtotal[index] = costsuyu[index] * parseInt(item.count); //Calculo subtotal
-
     } else { //Si moneda en pesos
       costsuyu[index] = parseInt(item.unitCost);
       productssubtotal[index] = costsuyu[index] * parseInt(item.count);
@@ -22,11 +25,11 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     productscount[index] = item.count;
     index += 1;
   }
-  showProducts(info, productssubtotal, costsuyu, productscount);
+  showProducts(info, productssubtotal, costsuyu, productscount, imgs, names);
 
 
   document.getElementById("shipmentmethod").addEventListener('change', function () {
-    shipmentCost(showProducts(info, productssubtotal, costsuyu, productscount));
+    shipmentCost(showProducts(info, productssubtotal, costsuyu, productscount, imgs, names));
   });
 
 
@@ -62,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
       countsOk = false;//Si no hay productos devuelve false
     } else {
       for (let count of productscount) {
-        if (isNaN(count)) {
+        if (isNaN(count)||count<0) {
           countsOk = false; //Si alguna es NaN devuelve false
         }
       }
@@ -91,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
       if (identifymethod == "card") {
         let cardnumOk = cardnumRegex.test(document.getElementById('cardnum').value);
         let cardexpOk = cardexpRegex.test(document.getElementById('cardexp').value);
-        toalert = "Error en ingreso de tarjeta: ingresar los 9 números de su tarjeta, que debe estar vigente.";
+        toalert = "Error en ingreso de tarjeta: ingresar los 9 números de su tarjeta, que debe vencer en este año o luego.";
 
         if (cardnumOk && cardexpOk) {
           paymentInfoOk = true;
@@ -122,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
 //A su vez realiza el cálculo y muestra del total de productos, y la inclusión de addEventListener para cada uno,
 //lo que permite identificar cambios en cantidades, eliminarlos si la cantidad es nula y presentar mensaje para carrito vacío.
 //Incluye el desafiate.
-function showProducts(cartinfo, productssubtotal, costsuyu, productscount) {
+function showProducts(cartinfo, productssubtotal, costsuyu, productscount, imgs, names) {
   let total = 0;
   let divtocart = document.getElementById("tocart");
   let content;
@@ -137,7 +140,7 @@ function showProducts(cartinfo, productssubtotal, costsuyu, productscount) {
       </tr>`
 
   for (let i = 0; i < productscount.length; i++) {
-    content += `<tr class="productslist" id="product${i}"> <td> <img src="${cartinfo[i].src}" style="width:100px;float: left" class="img-thumbnail"></td> <td>${cartinfo[i].name}</td>
+    content += `<tr class="productslist" id="product${i}"> <td> <img src="${imgs[i]}" style="width:100px;float: left" class="img-thumbnail"></td> <td>${names[i]}</td>
    <td>${costsuyu[i]} UYU</td>
     <td><input type="number" id="productcount${i}" style="width: 60px" value=${productscount[i]} min="0"></input></td>
    <td id="tosubtotal${i}">${costsuyu[i] * parseInt(productscount[i])} UYU</td><td id="trash${i}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
@@ -160,6 +163,12 @@ function showProducts(cartinfo, productssubtotal, costsuyu, productscount) {
 
       if (parseInt(document.getElementById(`productcount${i}`).value) == 0) {
         document.getElementById(`product${i}`).innerHTML = ""; //Si la cantidad es nula se elimina el objeto del carrito
+        productssubtotal.splice(i, 1); //Elimino el elemento en el ícono indicado y redefino lista 
+        productscount.splice(i, 1);
+        costsuyu.splice(i, 1);
+        imgs.splice(i, 1);
+        names.splice(i, 1);
+
       } else {
 
         document.getElementById(`tosubtotal${i}`).innerHTML = `${costsuyu[i] * parseInt(document.getElementById(`productcount${i}`).value)} UYU`;
@@ -185,7 +194,10 @@ function showProducts(cartinfo, productssubtotal, costsuyu, productscount) {
       productssubtotal.splice(i, 1); //Elimino el elemento en el ícono indicado y redefino lista 
       productscount.splice(i, 1);
       costsuyu.splice(i, 1);
-      showProducts(cartinfo, productssubtotal, costsuyu, productscount); //Ejecuto una nueva muestra
+      imgs.splice(i, 1);
+      names.splice(i, 1);
+      total = showProducts(cartinfo, productssubtotal, costsuyu, productscount, imgs, names); //Ejecuto una nueva muestra
+      shipmentCost(total);
       if (productscount.every(checkcount)) {
         divtocart.innerHTML = `<br><h3 style="text-align: center; color:red"> ¡Ups! Tu carrito está vacío &#128546</h3><br>
         <h4 style="text-align: center; color:red">Elije tu producto <a href="products.html">aquí</a></h4>`;
