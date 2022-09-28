@@ -1,9 +1,9 @@
 //Se incluye módulo Express y se crea una aplicación de express.
 var express = require('express');
 var app = express();
-const cors = require("cors");
-app.use(cors());
-var request = require('request');
+const cors = require("cors")
+app.use(cors())
+app.use(express.static('/img'));
 
 //JSON's del carrito
 app.get('/cart/987.json', function (req, res) {
@@ -35,11 +35,4 @@ app.get('/product/publish.json', function (req, res) {
 
 app.listen(3000, function () { //Crea el servidor escuchando al puerto 3000
   console.log('Servidor corriendo en el puerto 3000!')
-});
-
-request.post({
-  url:     'http://localhost:3000/cartinfo',
-  form:    { mes: "heydude" }
-}, function(error, response, body){
-  console.log(body);
 });
