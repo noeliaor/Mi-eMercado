@@ -3,7 +3,7 @@
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", async function (e) {
-  let info = (await getJSONData(CART_INFO_URL)).data.articles; //Realizo la petición y guardo result.data en una variable
+  let info = (await getJSONData("https://japdevdep.github.io/ecommerce-api/cart/654.json")).data.articles; //Realizo la petición y guardo result.data en una variable
   let index = 0;
   let productssubtotal = [];
   let costsuyu = [];
