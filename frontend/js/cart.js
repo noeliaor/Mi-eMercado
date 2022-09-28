@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", async function (e) {
   let identifymethod;
   let names = [];
   let imgs = [];
-  let shipmentMethod;
-  let totaltosave;
   for (let item of info) { //Recorro JSON con información de los productos
     names[index] = item.name;
     imgs[index] = item.src;
@@ -31,13 +29,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
 
 
   document.getElementById("shipmentmethod").addEventListener('change', function () {
-    let types = document.getElementsByName('shipment');
-    for (let type of types) {
-      if (type.checked) {
-        shipmentMethod = type.value;
-      }
-    }
-    totaltosave = shipmentCost(showProducts(info, productssubtotal, costsuyu, productscount, imgs, names));
+    shipmentCost(showProducts(info, productssubtotal, costsuyu, productscount, imgs, names));
   });
 
 
@@ -46,15 +38,15 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     if (document.getElementById("card").checked) { //En caso de selección de método tarjeta
       document.getElementById("topayinfo").innerHTML = `<form style="margin-top: 24px;">
        <label for="num">Número de tarjeta: </label>
-      <input type="number" id="cardnum" style="margin-left: 104px;" placeholder="NNNNNNNNN"><br>
-      <label for="exp">Fecha de vencimiento:  </label>
-      <input type="text" id="cardexp" style="margin-left: 10px;" placeholder="MM-AAAA"><br>
+      <input type="number" id="cardnum" style="margin-left: 104px;"><br>
+      <label for="exp">Fecha de vencimiento (MM-AAAA):  </label>
+      <input type="text" id="cardexp" style="margin-left: 10px;"><br>
     </form>` //Se generan espacios para ingresar datos de número de tarjeta y vencimiento
       identifymethod = "card";
     } else if (document.getElementById("bank").checked) { //En caso de selección de método cuenta bancaria
       document.getElementById("topayinfo").innerHTML = `<form style="margin-top: 24px;">
-          <label for="origin">N° de cuenta desde la que realizará la compra:</label>
-          <input type="text" id="banknum"  placeholder="BBB-BBBBBB-BBB"><br>
+          <label for="origin">N° de cuenta desde la que realizará la compra: </label>
+          <input type="text" id="banknum" ><br>
           </form>`; //Espacio para número de cuenta 
 
       identifymethod = "bank";
@@ -64,7 +56,6 @@ document.addEventListener("DOMContentLoaded", async function (e) {
 
   //Acciones de verificación cuando se clickea en el botón de compra
   document.getElementById("OkButton").addEventListener('click', function () {
-    let payArray;
     let shipmentOk = validator(document.getElementsByName('shipment')); //Método de envío seleccionado
     //Espacios para la dirección
     let directionOk = Boolean(document.getElementById('countrydir').value && document.getElementById('streetdir').value && document.getElementById('numdir').value && document.getElementById('cornerdir').value);
@@ -74,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
       countsOk = false;//Si no hay productos devuelve false
     } else {
       for (let count of productscount) {
-        if (isNaN(count) || count < 0) {
+        if (isNaN(count)||count<0) {
           countsOk = false; //Si alguna es NaN devuelve false
         }
       }
@@ -103,7 +94,6 @@ document.addEventListener("DOMContentLoaded", async function (e) {
       if (identifymethod == "card") {
         let cardnumOk = cardnumRegex.test(document.getElementById('cardnum').value);
         let cardexpOk = cardexpRegex.test(document.getElementById('cardexp').value);
-        payArray = [document.getElementById('cardnum').value, document.getElementById('cardexp').value];
         toalert = "Error en ingreso de tarjeta: ingresar los 9 números de su tarjeta, que debe vencer en este año o luego.";
 
         if (cardnumOk && cardexpOk) {
@@ -113,7 +103,6 @@ document.addEventListener("DOMContentLoaded", async function (e) {
       } else if (identifymethod == "bank") {
         let banknumOk = banknumRegex.test(document.getElementById('banknum').value);
         paymentInfoOk = banknumOk;
-        payArray = [document.getElementById('banknum').value];
         toalert = "Error en ingreso de cuenta bancaria: 12 números en formato BBB-BBBBBB-BBB"
       }
 
@@ -124,44 +113,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     }
 
     if (countsOk && shipmentOk && directionOk && paymentOk && paymentInfoOk) {
-      totaltosave = shipmentCost(showProducts(info, productssubtotal, costsuyu, productscount, imgs, names));
       alert("Su compra se registró con éxito. ¡Muchas gracias!")
-      //Defin array de datos del carrito
-      let cartobject = {
-        "Envío": [
-          {
-            "País": `${document.getElementById('countrydir').value}`,
-            "Calle": `${document.getElementById('streetdir').value}`,
-            "Esquina": `${document.getElementById('cornerdir').value}`,
-            "Número": `${document.getElementById('numdir').value}`,
-            "Método": `${shipmentMethod}`,
-          }
-        ],
-        "Pago": [
-          {
-            "Método": `${identifymethod}`,
-            "Datos de pago": `${JSON.stringify(payArray)}`, //Array con datos de pago, según método elegido
-          }
-        ],
-        "Productos": [
-          {
-            "Nombres": `${names}`,
-            "Cantidades": `${productscount}`,
-            "Subtotales": `${productssubtotal}`
-          }
-        ],
-        "Total": [
-          `${totaltosave}`
-        ]
-      }
-
-      fetch("http://localhost:3000/buyreception", {
-        method: "POST"
-        , body: JSON.stringify(cartobject),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
     }
 
 
@@ -223,9 +175,10 @@ function showProducts(cartinfo, productssubtotal, costsuyu, productscount, imgs,
 
       }
       total = productssubtotal.reduce((a, b) => a + b, 0); //Calculo nuevo total
+
       document.getElementById("subtotal").innerHTML = `${total} UYU`;
       document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total} UYU</span> </b>`; //Muestro el total de la compra
-      totaltosave = shipmentCost(total);
+      shipmentCost(total);
       if (productscount.every(checkcount)) {
         divtocart.innerHTML = `<br><h3 style="text-align: center; color:red"> ¡Ups! Tu carrito está vacío &#128546</h3><br>
         <h4 style="text-align: center; color:red">Elije tu producto <a href="products.html">aquí</a></h4>`;
@@ -244,7 +197,7 @@ function showProducts(cartinfo, productssubtotal, costsuyu, productscount, imgs,
       imgs.splice(i, 1);
       names.splice(i, 1);
       total = showProducts(cartinfo, productssubtotal, costsuyu, productscount, imgs, names); //Ejecuto una nueva muestra
-      totaltosave = shipmentCost(total);
+      shipmentCost(total);
       if (productscount.every(checkcount)) {
         divtocart.innerHTML = `<br><h3 style="text-align: center; color:red"> ¡Ups! Tu carrito está vacío &#128546</h3><br>
         <h4 style="text-align: center; color:red">Elije tu producto <a href="products.html">aquí</a></h4>`;
@@ -259,17 +212,14 @@ function showProducts(cartinfo, productssubtotal, costsuyu, productscount, imgs,
 
 //Función que realiza el cálculo del costo de envío a partir de la selección de un método y el total de la compra.
 function shipmentCost(total) {
-  let totaltosave;
   let costs = [0.15, 0.07, 0.05];  //Porcentajes para cálculo del envío (Premium, Express, Santdard)
   let types = document.getElementsByName('shipment');
   for (let type of types) {
     if (type.checked) {
       document.getElementById("shipment").innerHTML = `${parseInt(total * costs[type.value])} UYU`;
       document.getElementById("totalspace").innerHTML = `<b> El total a pagar es de  <span  style="color: #008CBA" >${total + parseInt(total * costs[type.value])} UYU</span> </b>`; //Muestro el total de la compra 
-      totaltosave = total + parseInt(total * costs[type.value]);
     }
   }
-  return totaltosave;
 };
 //Función que recibe un conjunto de radio button y devuelve true si alguno de ellos está chequeado.
 const validator = (Buttons) => {

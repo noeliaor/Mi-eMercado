@@ -1,1 +1,0 @@
-{"Envío":[{"País":"Uruguay","Calle":"Sarandí","Esquina":"090","Número":"346","Método":"2"}],"Pago":[{"Método":"bank","Datos de pago":"[\"200-333830-220\"]"}],"Productos":[{"Nombres":"Pino de olor para el auto,Suzuki Celerio","Cantidades":"2,1","Subtotales":"200,500000"}],"Total":["525210"]}
